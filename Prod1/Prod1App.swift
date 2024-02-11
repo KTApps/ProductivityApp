@@ -6,12 +6,15 @@
 //
 
 import SwiftUI
+import Modals
 
 @main
 struct Prod1App: App {
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            ModalStackView {
+                ContentView()
+            }
         }
     }
 }

@@ -11,6 +11,10 @@
 		7646F2AF2B7837D20075908C /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7646F2AE2B7837D20075908C /* ContentView.swift */; };
 		7646F2B12B7837D40075908C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7646F2B02B7837D40075908C /* Assets.xcassets */; };
 		7646F2B42B7837D40075908C /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7646F2B32B7837D40075908C /* Preview Assets.xcassets */; };
+		7646F2BB2B784DFB0075908C /* DropTow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7646F2BA2B784DFB0075908C /* DropTow.swift */; };
+		7646F2DB2B7888D50075908C /* ProgressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7646F2DA2B7888D50075908C /* ProgressView.swift */; };
+		7646F2DE2B788A8E0075908C /* Modals in Frameworks */ = {isa = PBXBuildFile; productRef = 7646F2DD2B788A8E0075908C /* Modals */; };
+		7646F2E02B793FDD0075908C /* AddTaskView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7646F2DF2B793FDD0075908C /* AddTaskView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -19,6 +23,9 @@
 		7646F2AE2B7837D20075908C /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		7646F2B02B7837D40075908C /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		7646F2B32B7837D40075908C /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		7646F2BA2B784DFB0075908C /* DropTow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DropTow.swift; sourceTree = "<group>"; };
+		7646F2DA2B7888D50075908C /* ProgressView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgressView.swift; sourceTree = "<group>"; };
+		7646F2DF2B793FDD0075908C /* AddTaskView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddTaskView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -26,6 +33,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7646F2DE2B788A8E0075908C /* Modals in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -53,6 +61,9 @@
 			children = (
 				7646F2AC2B7837D20075908C /* Prod1App.swift */,
 				7646F2AE2B7837D20075908C /* ContentView.swift */,
+				7646F2DF2B793FDD0075908C /* AddTaskView.swift */,
+				7646F2DA2B7888D50075908C /* ProgressView.swift */,
+				7646F2BA2B784DFB0075908C /* DropTow.swift */,
 				7646F2B02B7837D40075908C /* Assets.xcassets */,
 				7646F2B22B7837D40075908C /* Preview Content */,
 			);
@@ -83,6 +94,9 @@
 			dependencies = (
 			);
 			name = Prod1;
+			packageProductDependencies = (
+				7646F2DD2B788A8E0075908C /* Modals */,
+			);
 			productName = Prod1;
 			productReference = 7646F2A92B7837D20075908C /* Prod1.app */;
 			productType = "com.apple.product-type.application";
@@ -111,6 +125,9 @@
 				Base,
 			);
 			mainGroup = 7646F2A02B7837D20075908C;
+			packageReferences = (
+				7646F2DC2B788A8E0075908C /* XCRemoteSwiftPackageReference "Modals" */,
+			);
 			productRefGroup = 7646F2AA2B7837D20075908C /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -137,6 +154,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7646F2BB2B784DFB0075908C /* DropTow.swift in Sources */,
+				7646F2E02B793FDD0075908C /* AddTaskView.swift in Sources */,
+				7646F2DB2B7888D50075908C /* ProgressView.swift in Sources */,
 				7646F2AF2B7837D20075908C /* ContentView.swift in Sources */,
 				7646F2AD2B7837D20075908C /* Prod1App.swift in Sources */,
 			);
@@ -342,6 +362,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		7646F2DC2B788A8E0075908C /* XCRemoteSwiftPackageReference "Modals" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "http://github.com/fieldday-ai/Modals.git";
+			requirement = {
+				branch = main;
+				kind = branch;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		7646F2DD2B788A8E0075908C /* Modals */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 7646F2DC2B788A8E0075908C /* XCRemoteSwiftPackageReference "Modals" */;
+			productName = Modals;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 7646F2A12B7837D20075908C /* Project object */;
 }
