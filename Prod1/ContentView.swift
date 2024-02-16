@@ -38,7 +38,7 @@ struct ContentView: View {
                                         show.toggle()
                                     }
                                 } label: {
-                                    Text(item.title).foregroundColor(.pink).font(.callout).multilineTextAlignment(.center)
+                                    Text(item.title).foregroundColor(.white).font(.callout).multilineTextAlignment(.center)
                                         .bold()
                                     Spacer()
                                 }
