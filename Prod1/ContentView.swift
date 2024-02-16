@@ -24,139 +24,152 @@ struct ContentView: View {
     @State var show = false
     @State var name = "Task"
     @State private var isPresented = false
+    @State var isBlurActive = false
     var body: some View {
-        VStack{
-            ZStack{
+        ZStack {
+            VStack{
                 ZStack{
-                    RoundedRectangle(cornerRadius: 10)
-                    ScrollView{
-                        VStack(spacing: 17){
-                            ForEach(drop) { item in
-                                Button {
-                                    withAnimation {
-                                        name = item.title
-                                        show.toggle()
-                                    }
-                                } label: {
-                                    Text(item.title).foregroundColor(.pink).font(.callout).multilineTextAlignment(.center)
-                                        .bold()
-                                    Spacer()
-                                }
-                            }
-                            .padding(.horizontal)
-                            
-                            HStack {
-                                ZStack{
-                                    RoundedRectangle(cornerRadius: 10).stroke(lineWidth: 1)
-                                        .frame(width: 100, height: 30)
-                                        .foregroundColor(.white)
-                                    Text("Add Task").font(.callout).fontWeight(.bold).foregroundColor(.white).bold()
-                                    Button(action: {}) {
+                    ZStack{
+                        RoundedRectangle(cornerRadius: 10)
+                        ScrollView{
+                            VStack(spacing: 17){
+                                ForEach(drop) { item in
+                                    Button {
+                                        withAnimation {
+                                            name = item.title
+                                            show.toggle()
+                                        }
+                                    } label: {
+                                        Text(item.title).foregroundColor(.white).font(.callout).multilineTextAlignment(.center)
+                                            .bold()
+                                        Spacer()
                                     }
                                 }
+                                .padding(.horizontal)
+                                
+                                HStack {
+                                    ZStack{
+                                        RoundedRectangle(cornerRadius: 10).stroke(lineWidth: 1)
+                                            .frame(width: 100, height: 30)
+                                            .foregroundColor(.white)
+                                        Text("Add Task").font(.callout).fontWeight(.bold).foregroundColor(.white).bold()
+                                        Button(action: {}) {
+                                        }
+                                    }
+                                }
+                                
                             }
+                            .frame(maxWidth: .infinity,alignment: .leading)
+                            .padding(.vertical,15)
                             
                         }
-                        .frame(maxWidth: .infinity,alignment: .leading)
-                        .padding(.vertical,15)
-                        
+                    }
+                    .frame(height: show ? 220 : 50)
+                    .offset(y: show ? 0 : -135)
+                    .foregroundColor(.gray)
+                    
+                    ZStack{
+                        RoundedRectangle(cornerRadius: 10).frame(height: 60)
+                            .foregroundColor(.black)
+                        HStack{
+                            Text(name).font(.title2)
+                            
+                            Image(systemName: "chevron.down")
+                        }
+                        .bold()
+                        .padding(.horizontal)
+                        .foregroundColor(.white)
+                    }
+                    .offset(y: -135)
+                    .onTapGesture {
+                        withAnimation {
+                            show .toggle()
+                        }
                     }
                 }
-                .frame(height: show ? 220 : 50)
-                .offset(y: show ? 0 : -135)
-                .foregroundColor(.gray)
-                
-                ZStack{
-                    RoundedRectangle(cornerRadius: 10).frame(height: 60)
-                        .foregroundColor(.black)
-                    HStack{
-                        Text(name).font(.title2)
-                        
-                        Image(systemName: "chevron.down")
+                .zIndex(1)
+                .padding(30)
+                VStack {
+                    VStack{
+                        VStack{
+                            Label("00:00:00", systemImage: "hourglass.bottomhalf.fill").font(.callout)
+                                .bold()
+                                .padding()
+                                .offset(x: -5)
+                                .padding(10)
+                            
+                            ZStack{
+                                Button(action: {
+                                    isBlurActive.toggle()
+                                }) {
+                                    Circle()
+                                        .stroke(lineWidth: 20.0)
+                                        .opacity(0.3)
+                                        .foregroundColor(.gray)
+                                        .frame(width: 220, height: 220)
+                                }
+                                Circle()
+                                    .stroke(style: StrokeStyle(lineWidth: 20.0, lineCap: .round, lineJoin: .round))
+                                    .foregroundColor(.blue)
+                                    .rotationEffect(.degrees(-90))
+                                    .frame(width: 300, height: 300)
+                                VStack{
+                                    Text("3 Hours").font(.callout)
+                                    Text("Today").font(.caption) // placeholder for date
+                                }
+                            }
+                            VStack{
+                                HStack{
+                                    Text("Last 10 Days")
+                                        .font(.headline)
+                                        .fontWeight(.bold)
+                                    Spacer()
+                                }
+                                .padding(.horizontal, 10)
+                                ZStack{
+                                    RoundedRectangle(cornerRadius: 10).frame(height: 200)
+                                        .foregroundColor(.gray)
+                                    VStack{
+                                        Spacer()
+                                        Button {
+                                            isPresented = true
+                                        } label: {
+                                            ZStack{
+                                                RoundedRectangle(cornerRadius: 10).stroke(lineWidth: 1)
+                                                    .frame(width: 180, height: 40)
+                                                    .foregroundColor(.white)
+                                                Text("View Your Progress")
+                                                    .foregroundColor(Color.white)
+                                            }
+                                            .modal(isPresented: $isPresented) {
+                                                ViewYourProgress()
+                                            }
+                                            
+                                        }
+                                    }
+                                    .padding()
+                                }
+                                .offset(y: 65)
+                            }
+                        }
+                        .offset(y: 100)
                     }
-                    .bold()
-                    .padding(.horizontal)
-                    .foregroundColor(.white)
-                }
-                .offset(y: -135)
-                .onTapGesture {
-                    withAnimation {
-                        show .toggle()
-                    }
+                    .padding()
+                    .frame(height: 300).offset(y: -140)
+                    .preferredColorScheme(.dark)
                 }
             }
-            .zIndex(1)
-            .padding(30)
-            VStack {
-                VStack{
-                    VStack{
-                        Label("00:00:00", systemImage: "hourglass.bottomhalf.fill").font(.callout)
-                            .bold()
-                            .padding()
-                            .offset(x: -5)
-                            .padding(10)
-                        ZStack{
-                            Circle()
-                                .stroke(lineWidth: 20.0)
-                                .opacity(0.3)
-                                .foregroundColor(.gray)
-                                .frame(width: 220, height: 220)
-                            Circle()
-                                .stroke(style: StrokeStyle(lineWidth: 20.0, lineCap: .round, lineJoin: .round))
-                                .foregroundColor(.blue)
-                                .rotationEffect(.degrees(-90))
-                                .frame(width: 300, height: 300)
-                            VStack{
-                                Text("3 Hours").font(.callout)
-                                Text("Today").font(.caption) // placeholder for date
-                            }
-                        }
-                        VStack{
-                            HStack{
-                                Text("Last 10 Days")
-                                    .font(.headline)
-                                    .fontWeight(.bold)
-                                Spacer()
-                            }
-                            .padding(.horizontal, 10)
-                            ZStack{
-                                RoundedRectangle(cornerRadius: 10).frame(height: 200)
-                                    .foregroundColor(.gray)
-                                VStack{
-                                    Spacer()
-                                    Button {
-                                        isPresented = true
-                                    } label: {
-                                        ZStack{
-                                            RoundedRectangle(cornerRadius: 10).stroke(lineWidth: 1)
-                                                .frame(width: 180, height: 40)
-                                                .foregroundColor(.white)
-                                            Text("View Your Progress")
-                                                .foregroundColor(Color.white)
-                                        }
-                                        .modal(isPresented: $isPresented) {
-                                            ViewYourProgress()
-                                        }
-                                        
-                                    }
-                                }
-                                .padding()
-                            }
-                            }
-                        .offset(y: 65)
-                        }
-                    }
-                    .offset(y: 100)
+            if isBlurActive {
+                Button(action: {
+                    isBlurActive.toggle()
+                }) {
+                    BlurView()
+                        .ignoresSafeArea()
                 }
-                .padding()
-                .frame(height: 300).offset(y: -140)
-                
-                
-                .preferredColorScheme(.dark)
             }
         }
     }
-
+}
         
         
 struct ContentView_Previews: PreviewProvider {

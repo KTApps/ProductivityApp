@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		08EB383C2B7FC9F000141B28 /* BlurView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08EB383B2B7FC9F000141B28 /* BlurView.swift */; };
+		08EB383E2B7FCF6700141B28 /* HabitTracker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08EB383D2B7FCF6700141B28 /* HabitTracker.swift */; };
 		7646F2AD2B7837D20075908C /* Prod1App.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7646F2AC2B7837D20075908C /* Prod1App.swift */; };
 		7646F2AF2B7837D20075908C /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7646F2AE2B7837D20075908C /* ContentView.swift */; };
 		7646F2B12B7837D40075908C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7646F2B02B7837D40075908C /* Assets.xcassets */; };
@@ -18,6 +20,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		08EB383B2B7FC9F000141B28 /* BlurView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlurView.swift; sourceTree = "<group>"; };
+		08EB383D2B7FCF6700141B28 /* HabitTracker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HabitTracker.swift; sourceTree = "<group>"; };
 		7646F2A92B7837D20075908C /* Prod1.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Prod1.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		7646F2AC2B7837D20075908C /* Prod1App.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Prod1App.swift; sourceTree = "<group>"; };
 		7646F2AE2B7837D20075908C /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -61,6 +65,8 @@
 			children = (
 				7646F2AC2B7837D20075908C /* Prod1App.swift */,
 				7646F2AE2B7837D20075908C /* ContentView.swift */,
+				08EB383B2B7FC9F000141B28 /* BlurView.swift */,
+				08EB383D2B7FCF6700141B28 /* HabitTracker.swift */,
 				7646F2DF2B793FDD0075908C /* AddTaskView.swift */,
 				7646F2DA2B7888D50075908C /* ProgressView.swift */,
 				7646F2BA2B784DFB0075908C /* DropTow.swift */,
@@ -159,6 +165,8 @@
 				7646F2DB2B7888D50075908C /* ProgressView.swift in Sources */,
 				7646F2AF2B7837D20075908C /* ContentView.swift in Sources */,
 				7646F2AD2B7837D20075908C /* Prod1App.swift in Sources */,
+				08EB383E2B7FCF6700141B28 /* HabitTracker.swift in Sources */,
+				08EB383C2B7FC9F000141B28 /* BlurView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
