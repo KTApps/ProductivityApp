@@ -1,18 +1,24 @@
 //
-//  ViewYourProgress.swift
+//  ProgressView.swift
 //  Prod1
 //
-//  Created by Kelvin Mahaja on 18/02/2024.
+//  Created by Tanaka Bere on 11/02/2024.
 //
 
 import SwiftUI
 
 struct ViewYourProgress: View {
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        ZStack{
+            Color.gray
+            Text("Progress")
+        }
+        .ignoresSafeArea()
     }
 }
 
-#Preview {
-    ViewYourProgress()
+struct ViewYourProgress_Previews: PreviewProvider {
+    static var previews: some View {
+        ViewYourProgress()
+    }
 }
