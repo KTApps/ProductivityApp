@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct HabitAdder: View {
+    @EnvironmentObject var objects: Objects
     
     @State private var habitName: String = ""
     
@@ -15,8 +16,6 @@ struct HabitAdder: View {
     private func habitAppender() {
         habitArray.append(habitName)
     }
-    
-    @State private var selectedHabit: String?
     
     var body: some View {
         ZStack {
@@ -63,25 +62,62 @@ struct HabitAdder: View {
                 .shadow(radius: 3, x: 3, y: 3)
                 .padding(.horizontal, 2)
                 
+                Spacer()
+                    .frame(height: 20)
+                
                 ForEach(habitArray, id: \.self) { habit in
-                    VStack {
-                        Button(action: {
-                            selectedHabit = habit
-                        }) {
-                            Text(habit)
-                                .font(.title)
-                                .fontWeight(.bold)
-                                .foregroundColor(.black)
-                                .shadow(radius: 3, x: 3, y: 3)
-                        }
-                    }
+                    Text(habit)
+                        .font(.title)
+                        .fontWeight(.bold)
+                        .offset(objects.habitPositions[habit] ?? .zero)
+                        .foregroundColor(.black)
+                        .shadow(radius: 3, x: 3, y: 3)
+                        .overlay(
+                            objects.isHabitStriked[habit] ?? false ?
+                                Rectangle()
+                                    .frame(height: 5)
+                                    .foregroundColor(.white)
+                                    .offset(x: objects.habitPositions[habit]?.width ?? 0, y: 0)
+                                : nil
+                        )
+                        .gesture(
+                            DragGesture()
+                                .onChanged({ value in
+                                    let movement = CGSize(width: value.translation.width, height: 0)
+                                    objects.habitPositions[habit] = movement
+                                    if let position = objects.habitPositions[habit], position.width < -90 || position.width > 90 {
+                                        objects.isHabitStriked[habit] = true
+                                    } else {
+                                        objects.isHabitStriked[habit] = false
+                                    }
+                                })
+                                .onEnded({ value in
+                                    if let position = objects.habitPositions[habit], position.width < -90 || position.width > 90 {
+                                        objects.selectedHabit = habit
+                                        objects.habitPositions[habit] = .zero
+                                    } else {
+                                        objects.habitPositions[habit] = .zero
+                                    }
+                                })
+                        )
                 }
                 Spacer()
+                HStack {
+                    Image(systemName: "chevron.left")
+                    Spacer()
+                        .frame(width: 20)
+                    Text("Swipe task to delete")
+                    Spacer()
+                        .frame(width: 20)
+                    Image(systemName: "chevron.right")
+                }
+                Spacer()
+                    .frame(height: 60)
             }
             .padding(.top, 50)
             .padding(.horizontal, 30)
         }
-        .onChange(of: selectedHabit) { habitToRemove in
+        .onChange(of: objects.selectedHabit) { habitToRemove in
             if let habitToRemove = habitToRemove { // if 'habitToRemove' != nil then...
                 habitArray.removeAll { $0 == habitToRemove } // remove all strings in array (if they're equal to 'habitToRemove
             }
@@ -94,5 +130,6 @@ struct HabitAdder_Previews: PreviewProvider {
 
     static var previews: some View {
         HabitAdder(habitArray: $habitArray)
+            .environmentObject(Objects())
     }
 }

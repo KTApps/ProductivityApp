@@ -34,4 +34,5 @@ struct BlurEffect: UIViewRepresentable {
 #Preview {
     BlurView()
         .ignoresSafeArea()
+        .environmentObject(Objects())
 }

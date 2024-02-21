@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		081550052B869BA800A50212 /* Objects.swift in Sources */ = {isa = PBXBuildFile; fileRef = 081550042B869BA800A50212 /* Objects.swift */; };
 		082D11B42B82910100E39B40 /* HabitAdder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 082D11B32B82910100E39B40 /* HabitAdder.swift */; };
 		082D11B72B8291E400E39B40 /* ViewYourProgress.swift in Sources */ = {isa = PBXBuildFile; fileRef = 082D11B62B8291E400E39B40 /* ViewYourProgress.swift */; };
 		08EB383C2B7FC9F000141B28 /* BlurView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08EB383B2B7FC9F000141B28 /* BlurView.swift */; };
@@ -20,6 +21,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		081550042B869BA800A50212 /* Objects.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = Objects.swift; path = ../Objects.swift; sourceTree = "<group>"; };
 		082D11B32B82910100E39B40 /* HabitAdder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HabitAdder.swift; sourceTree = "<group>"; };
 		082D11B62B8291E400E39B40 /* ViewYourProgress.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewYourProgress.swift; sourceTree = "<group>"; };
 		08EB383B2B7FC9F000141B28 /* BlurView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlurView.swift; sourceTree = "<group>"; };
@@ -78,6 +80,7 @@
 				082D11B52B82912D00E39B40 /* Habit BlurView */,
 				7646F2BA2B784DFB0075908C /* DropTow.swift */,
 				082D11B62B8291E400E39B40 /* ViewYourProgress.swift */,
+				081550042B869BA800A50212 /* Objects.swift */,
 				7646F2B02B7837D40075908C /* Assets.xcassets */,
 				7646F2B22B7837D40075908C /* Preview Content */,
 			);
@@ -170,6 +173,7 @@
 			files = (
 				7646F2BB2B784DFB0075908C /* DropTow.swift in Sources */,
 				082D11B42B82910100E39B40 /* HabitAdder.swift in Sources */,
+				081550052B869BA800A50212 /* Objects.swift in Sources */,
 				7646F2AF2B7837D20075908C /* ContentView.swift in Sources */,
 				082D11B72B8291E400E39B40 /* ViewYourProgress.swift in Sources */,
 				7646F2AD2B7837D20075908C /* Prod1App.swift in Sources */,

@@ -149,7 +149,7 @@ struct ContentView: View {
                                     }
                                     .padding()
                                 }
-                                .offset(y: 65)
+                                .offset(y: 60)
                             }
                         }
                         .offset(y: 100)
