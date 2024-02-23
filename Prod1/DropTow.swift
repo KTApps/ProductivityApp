@@ -64,7 +64,7 @@ struct DropTow: View {
                 }
             }
             .padding()
-            .frame(height: 300).offset(y: 30)
+            .frame(height: 200).offset(y: 10)
         }
 }
 

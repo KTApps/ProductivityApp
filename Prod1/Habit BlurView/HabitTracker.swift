@@ -16,11 +16,12 @@ struct HabitTracker: View {
     @State private var IsAddHabitVisible = false
     
     @State private var habitArray: [String] = []
+    @State private var habitDict: [String: String] = [:]
             
     var body: some View {
         VStack {
             Spacer()
-                .frame(height: 60)
+                .frame(height: 100)
             HStack {
                 Button(action: {
                     if WeekDayIndexCounter != 0 {
@@ -39,7 +40,7 @@ struct HabitTracker: View {
                 Spacer()
                 
                 Text(WeekDay[WeekDayIndexCounter])
-                    .font(.largeTitle)
+                    .font(.title)
                     .fontWeight(.bold)
                     .shadow(radius: 3, x: 3, y: 3)
                 
@@ -60,84 +61,69 @@ struct HabitTracker: View {
                 }
             }
             .padding(.horizontal, 40)
-            
             Spacer()
-                .frame(height: 70)
+                .frame(height: 80)
             
             ForEach(habitArray, id: \.self) { habit in
-                Text(habit)
-                    .font(.title)
-                    .fontWeight(.bold)
-                    .offset(objects.habitPositions[habit] ?? .zero)
-                    .shadow(radius: 3, x: 3, y: 3)
-                    .overlay(
-                        objects.isHabitStriked[habit] ?? false ?
-                            Rectangle()
-                                .frame(height: 5)
-                                .foregroundColor(.black)
-                                .offset(x: objects.habitPositions[habit]?.width ?? 0, y: 0)
-                            : nil
-                    )
-                    .gesture(
-                        DragGesture()
-                            .onChanged({ value in
-                                let movement = CGSize(width: value.translation.width, height: 0)
-                                objects.habitPositions[habit] = movement
-                                if let position = objects.habitPositions[habit], position.width < -90 || position.width > 90 {
-                                    objects.isHabitStriked[habit] = true
-                                } else {
-                                    objects.isHabitStriked[habit] = false
-                                }
-                            })
-                            .onEnded({ value in
-                                if let position = objects.habitPositions[habit], position.width < -90 || position.width > 90 {
-                                    objects.selectedHabit = habit
-                                    objects.habitPositions[habit] = .zero
-                                } else {
-                                    objects.habitPositions[habit] = .zero
-                                }
-                            })
-                    )
+                VStack {
+                    Text(habit)
+                        .font(.title)
+                        .fontWeight(.bold)
+                        .shadow(radius: 3, x: 3, y: 3)
+                    Text(habitDict[habit] ?? "10:00")
+                        .font(.body)
+                }
+                .offset(objects.habitPositions[habit] ?? .zero)
+                .overlay(
+                    objects.isHabitStriked[habit] ?? false ?
+                        Rectangle()
+                            .frame(height: 4)
+                            .foregroundColor(.black)
+                            .offset(x: objects.habitPositions[habit]?.width ?? 0, y: -6)
+                        : nil
+                )
+                .gesture(
+                    DragGesture()
+                        .onChanged({ value in
+                            let movement = CGSize(width: value.translation.width, height: 0)
+                            objects.habitPositions[habit] = movement
+                            if let position = objects.habitPositions[habit], position.width < -90 || position.width > 90 {
+                                objects.isHabitStriked[habit] = true
+                            } else {
+                                objects.isHabitStriked[habit] = false
+                            }
+                        })
+                        .onEnded({ value in
+                            if let position = objects.habitPositions[habit], position.width < -90 || position.width > 90 {
+                                objects.selectedHabit = habit
+                                objects.habitPositions[habit] = .zero
+                            } else {
+                                objects.habitPositions[habit] = .zero
+                            }
+                        })
+                )
+                Spacer()
+                    .frame(height: 15)
             }
             
             Spacer()
             
             HStack {
-                Image(systemName: "chevron.left")
-                Spacer()
-                    .frame(width: 20)
-                Text("Swipe task to delete")
-                Spacer()
-                    .frame(width: 20)
-                Image(systemName: "chevron.right")
-            }
-            
-            Spacer()
-                .frame(height: 30)
-            
-            HStack {
-                Spacer()
                 Button(action: {
-                    IsAddHabitVisible.toggle()
+                    IsAddHabitVisible = true
                 }) {
                     Text("Add Habit")
                         .font(.title3)
                         .fontWeight(.bold)
-                        .padding(15)
-                        .foregroundColor(.white)
-                        .background(Color.accentColor)
-                        .cornerRadius(25)
-                        .shadow(radius: 3, x: 3, y: 3)
                 }
-                .popover(isPresented: $IsAddHabitVisible, arrowEdge: .top, content: {
+                .sheet(isPresented: $IsAddHabitVisible) {
                     ZStack {
                         BlurEffect(style: .light)
-                        HabitAdder(habitArray: $habitArray)
+                        HabitAdder(habitArray: $habitArray, habitDict: $habitDict)
+                            .presentationDetents([.height(300)])
                     }
-                    .ignoresSafeArea()
-                })
+                }
             }
-            .padding(.horizontal, 40)
             Spacer()
                 .frame(height: 30)
         }
@@ -152,5 +138,6 @@ struct HabitTracker: View {
 
 #Preview {
     HabitTracker()
+        .foregroundColor(.black)
         .environmentObject(Objects())
 }

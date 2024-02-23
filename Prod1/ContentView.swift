@@ -65,11 +65,12 @@ struct ContentView: View {
                         }
                     }
                     .frame(height: show ? 220 : 50)
-                    .offset(y: show ? 0 : -135)
+                    .offset(y: show ? 0 : -155)
                     .foregroundColor(.gray)
                     
                     ZStack{
-                        RoundedRectangle(cornerRadius: 10).frame(height: 60)
+                        RoundedRectangle(cornerRadius: 10)
+                            .frame(height: 60)
                             .foregroundColor(.black)
                         HStack{
                             Text(name).font(.title2)
@@ -80,7 +81,7 @@ struct ContentView: View {
                         .padding(.horizontal)
                         .foregroundColor(.white)
                     }
-                    .offset(y: -135)
+                    .offset(y: -155)
                     .onTapGesture {
                         withAnimation {
                             show .toggle()
@@ -88,14 +89,14 @@ struct ContentView: View {
                     }
                 }
                 .zIndex(1)
-                .padding(30)
+                .padding(.horizontal, 10)
                 VStack {
                     VStack{
                         VStack{
                             Label("00:00:00", systemImage: "hourglass.bottomhalf.fill").font(.callout)
                                 .bold()
                                 .padding()
-                                .offset(x: -5)
+                                .offset(x: -5, y: -5)
                                 .padding(10)
                             
                             ZStack{
@@ -118,6 +119,8 @@ struct ContentView: View {
                                     Text("Today").font(.caption) // placeholder for date
                                 }
                             }
+                            Spacer()
+                                .frame(height: 70)
                             VStack{
                                 HStack{
                                     Text("Last 10 Days")
@@ -127,7 +130,8 @@ struct ContentView: View {
                                 }
                                 .padding(.horizontal, 10)
                                 ZStack{
-                                    RoundedRectangle(cornerRadius: 10).frame(height: 200)
+                                    RoundedRectangle(cornerRadius: 10)
+                                        .frame(height: 200)
                                         .foregroundColor(.gray)
                                     VStack{
                                         Spacer()
@@ -149,10 +153,10 @@ struct ContentView: View {
                                     }
                                     .padding()
                                 }
-                                .offset(y: 60)
+//                                .offset(y: 60)
                             }
                         }
-                        .offset(y: 100)
+                        .offset(y: 140)
                     }
                     .padding()
                     .frame(height: 300).offset(y: -140)
@@ -175,5 +179,6 @@ struct ContentView: View {
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
         ContentView()
+            .environmentObject(Objects())
     }
 }
