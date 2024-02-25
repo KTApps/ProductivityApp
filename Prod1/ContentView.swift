@@ -4,168 +4,190 @@
 //
 //  Created by Tanaka Bere on 10/02/2024.
 //
-struct DropMenu: Identifiable {
-    var id = UUID()
-    var title: String
-}
-let drop = [
-    DropMenu(title: "Piano"),
-    DropMenu(title: "Chess"),
-    DropMenu(title: "Creative Writing"),
-    DropMenu(title: "Reading"),
-    DropMenu(title: "Spanish Speaking"),
-    DropMenu(title: "Sudoku")
-]
 
 import SwiftUI
-import Modals
 
 struct ContentView: View {
-    @State var show = false
-    @State var name = "Task"
-    @State private var isPresented = false
-    @State var isBlurActive = false
+    var dropMenu = DropMenu.self
+    
+    @State var TaskName = "Task"
+
+//    MARK: BOOLEAN STATE VARIABLES
+    @State var IsTaskDropDownVisible = false
+    @State var IsBlurViewVisible = false
+    @State private var IsViewYourProgressVisible = false
+    
     var body: some View {
+        
+//        MARK: ZStack for BlurView
         ZStack {
             VStack{
+                
+//                MARK: TASK TITLE & TASK DROP DOWN ZStack
                 ZStack{
+                    
+//                    MARK: TASK DROP DOWN ZStack
                     ZStack{
                         RoundedRectangle(cornerRadius: 10)
+                            .foregroundColor(.gray)
                         ScrollView{
-                            VStack(spacing: 17){
+                            LazyVStack(spacing: 17) {
+                                
+//                                MARK: LIST OF DROPDOWN Buttons
                                 ForEach(drop) { item in
-                                    Button {
+                                    Button(action: {
                                         withAnimation {
-                                            name = item.title
-                                            show.toggle()
+                                            TaskName = item.title
+                                            IsTaskDropDownVisible = true
                                         }
-                                    } label: {
-                                        Text(item.title).foregroundColor(.white).font(.callout).multilineTextAlignment(.center)
-                                            .bold()
-                                        Spacer()
+                                    }) {
+                                        HStack {
+                                            Text(item.title)
+                                                .foregroundColor(.white)
+                                                .font(.callout)
+                                                .multilineTextAlignment(.center)
+                                                .bold()
+                                            Spacer()
+                                        }
                                     }
                                 }
                                 .padding(.horizontal)
                                 
-                                HStack {
+//                                MARK: ADD DROPDOWN ITEM Button
+                                Button(action: {
+                                    
+                                }) {
                                     ZStack{
-                                        RoundedRectangle(cornerRadius: 10).stroke(lineWidth: 1)
+                                        RoundedRectangle(cornerRadius: 10)
+                                            .stroke(lineWidth: 1)
                                             .frame(width: 100, height: 30)
                                             .foregroundColor(.white)
-                                        Text("Add Task").font(.callout).fontWeight(.bold).foregroundColor(.white).bold()
-                                        Button(action: {}) {
-                                        }
+                                        Text("Add item")
+                                            .font(.callout)
+                                            .fontWeight(.bold)
+                                            .foregroundColor(.white)
                                     }
                                 }
-                                
                             }
-                            .frame(maxWidth: .infinity,alignment: .leading)
-                            .padding(.vertical,15)
-                            
+                            .frame(maxWidth: .infinity, alignment: .leading)
+                            .padding(.vertical, 15)
                         }
                     }
-                    .frame(height: show ? 220 : 50)
-                    .offset(y: show ? 0 : -155)
-                    .foregroundColor(.gray)
+                    .frame(height: IsTaskDropDownVisible ? 200 : 0) // If show = true, ZStack height = 220, else height = 0
+                    .offset(y: IsTaskDropDownVisible ? 160 : 20) // Control Transition of DropDown
                     
+//                    MARK: TASK TITLE ZStack
                     ZStack{
                         RoundedRectangle(cornerRadius: 10)
                             .frame(height: 60)
                             .foregroundColor(.black)
                         HStack{
-                            Text(name).font(.title2)
-                            
+                            Text(TaskName)
+                                .font(.title2)
                             Image(systemName: "chevron.down")
                         }
                         .bold()
-                        .padding(.horizontal)
                         .foregroundColor(.white)
                     }
-                    .offset(y: -155)
+                    .offset(y: 20)
                     .onTapGesture {
                         withAnimation {
-                            show .toggle()
+                            IsTaskDropDownVisible.toggle()
                         }
                     }
                 }
                 .zIndex(1)
                 .padding(.horizontal, 10)
-                VStack {
+                
+//                            MARK: HOUR GLASS Label
+                Label("00:00:00", systemImage: "hourglass.bottomhalf.fill")
+                    .font(.callout)
+                    .bold()
+                    .padding(.vertical, 30)
+                    .offset(x: -5, y: -5)
+                
+//                            MARK: CIRCLE ZStack
+                ZStack{
+                    
+//                                MARK: INNER CIRCLE Button
+                    Button(action: {
+                        IsBlurViewVisible = true
+                    }) {
+                        Circle()
+                            .stroke(lineWidth: 20)
+                            .opacity(0.3)
+                            .foregroundColor(.gray)
+                            .frame(width: 220, height: 220)
+                    }
+                    
+//                                MARK: OUTER CIRCLE
+                    Circle()
+                        .stroke(
+                            style: StrokeStyle(
+                                lineWidth: 20,
+                                lineCap: .round,
+                                lineJoin: .round
+                            )
+                        )
+                        .foregroundColor(.blue)
+                        .rotationEffect(.degrees(-90))
+                        .frame(width: 300, height: 300)
                     VStack{
+                        Text("3 Hours")
+                            .font(.callout)
+                        Text("Today")
+                            .font(.caption) // placeholder for date
+                    }
+                }
+                Spacer()
+                    .frame(height: 60)
+                
+//                            MARK: LAST 10 DAYS BLOCK
+                VStack{
+                    HStack{
+                        Text("Last 10 Days")
+                            .font(.headline)
+                            .fontWeight(.bold)
+                        Spacer()
+                    }
+                    .padding(.horizontal, 10)
+                    
+//                                MARK: VIEW YOUR PROGRESS Rectangle
+                    ZStack{
+                        RoundedRectangle(cornerRadius: 10)
+                            .frame(height: 200)
+                            .foregroundColor(.gray)
+                            .padding(.horizontal, 7)
+                        
+//                                    MARK: VIEW YOUR PROGRESS Button
                         VStack{
-                            Label("00:00:00", systemImage: "hourglass.bottomhalf.fill").font(.callout)
-                                .bold()
-                                .padding()
-                                .offset(x: -5, y: -5)
-                                .padding(10)
-                            
-                            ZStack{
-                                Button(action: {
-                                    isBlurActive.toggle()
-                                }) {
-                                    Circle()
-                                        .stroke(lineWidth: 20.0)
-                                        .opacity(0.3)
-                                        .foregroundColor(.gray)
-                                        .frame(width: 220, height: 220)
-                                }
-                                Circle()
-                                    .stroke(style: StrokeStyle(lineWidth: 20.0, lineCap: .round, lineJoin: .round))
-                                    .foregroundColor(.blue)
-                                    .rotationEffect(.degrees(-90))
-                                    .frame(width: 300, height: 300)
-                                VStack{
-                                    Text("3 Hours").font(.callout)
-                                    Text("Today").font(.caption) // placeholder for date
-                                }
-                            }
                             Spacer()
-                                .frame(height: 70)
-                            VStack{
-                                HStack{
-                                    Text("Last 10 Days")
-                                        .font(.headline)
-                                        .fontWeight(.bold)
-                                    Spacer()
-                                }
-                                .padding(.horizontal, 10)
+                            Button(action: {
+                                IsViewYourProgressVisible = true
+                            }) {
                                 ZStack{
                                     RoundedRectangle(cornerRadius: 10)
-                                        .frame(height: 200)
-                                        .foregroundColor(.gray)
-                                    VStack{
-                                        Spacer()
-                                        Button {
-                                            isPresented = true
-                                        } label: {
-                                            ZStack{
-                                                RoundedRectangle(cornerRadius: 10).stroke(lineWidth: 1)
-                                                    .frame(width: 180, height: 40)
-                                                    .foregroundColor(.white)
-                                                Text("View Your Progress")
-                                                    .foregroundColor(Color.white)
-                                            }
-                                            .modal(isPresented: $isPresented) {
-                                                ViewYourProgress()
-                                            }
-                                            
-                                        }
-                                    }
-                                    .padding()
+                                        .stroke(lineWidth: 1)
+                                        .frame(width: 180, height: 40)
+                                    Text("View Your Progress")
                                 }
-//                                .offset(y: 60)
+                                .foregroundColor(.white)
+                            }
+                            .sheet(isPresented: $IsViewYourProgressVisible) {
+                                ViewYourProgress()
+                                    .presentationDetents([.medium, .large])
                             }
                         }
-                        .offset(y: 140)
+                        .padding()
                     }
-                    .padding()
-                    .frame(height: 300).offset(y: -140)
-                    .preferredColorScheme(.dark)
                 }
             }
-            if isBlurActive {
+            .preferredColorScheme(/*@START_MENU_TOKEN@*/.dark/*@END_MENU_TOKEN@*/)
+            
+//            MARK: BlurView Button
+            if IsBlurViewVisible {
                 Button(action: {
-                    isBlurActive.toggle()
+                    IsBlurViewVisible = false
                 }) {
                     BlurView()
                         .ignoresSafeArea()

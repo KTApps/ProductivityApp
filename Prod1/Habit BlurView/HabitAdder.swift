@@ -10,21 +10,30 @@ import SwiftUI
 struct HabitAdder: View {
     @EnvironmentObject var objects: Objects
     
-    @State private var habitName: String = ""
-    @State private var habitTime: String = ""
+    @State var habitName = ""
+    @State var habitTime = ""
     
-    @Binding var habitArray: [String]
-    @Binding var habitDict: [String: String]
     private func habitAppender() {
-        habitArray.append(habitName)
-        habitDict[habitName] = habitTime
+        let habitId = UUID().uuidString
+        (objects.habitIdArray).append(habitId)
+        (objects.habitIdDict)[habitId] = habitName
+        objects.habitDict[habitId] = habitTime
+        let weekday = objects.WeekDay[objects.WeekDayIndexCounter]
+        if var existingArray = objects.WeekDayHabits[weekday] { // if 'existingArray' != nil
+            existingArray.append(habitId)
+            objects.WeekDayHabits[weekday] = existingArray
+        } else {
+            objects.WeekDayHabits[weekday] = [habitId]
+        }
     }
-    
+        
     var body: some View {
         ZStack {
             Color.gray.ignoresSafeArea()
             
             VStack {
+                
+//                MARK: TASK HStack
                 HStack {
                     Text("Task")
                     Spacer()
@@ -36,10 +45,12 @@ struct HabitAdder: View {
                     .textFieldStyle(RoundedBorderTextFieldStyle())
                     .colorInvert()
                     .shadow(radius: 5, x: 3, y: 3)
+                    .autocapitalization(.none)
                 
                 Spacer()
                     .frame(height: 20)
                 
+//                MARK: TIME HStack
                 HStack {
                     Text("Time")
                     Spacer()
@@ -55,8 +66,10 @@ struct HabitAdder: View {
                 Spacer()
                     .frame(height: 25)
                 
+//                MARK: SAVE Button
                 Button(action: {
                     habitAppender()
+                    print(objects.WeekDayHabits)
                     habitName = ""
                     habitTime = ""
                 }) {
@@ -78,11 +91,8 @@ struct HabitAdder: View {
 }
 
 struct HabitAdder_Previews: PreviewProvider {
-    @State static var habitArray: [String] = [""]
-    @State static var habitDict: [String: String] = ["": ""]
-    
     static var previews: some View {
-        HabitAdder(habitArray: $habitArray, habitDict: $habitDict)
+        HabitAdder()
             .foregroundColor(.black)
             .environmentObject(Objects())
     }

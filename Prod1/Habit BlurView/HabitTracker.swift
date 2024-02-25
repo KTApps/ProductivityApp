@@ -10,26 +10,24 @@ import SwiftUI
 struct HabitTracker: View {
     @EnvironmentObject var objects: Objects
     
-    private var WeekDay = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"]
-    @State private var WeekDayIndexCounter = 0
-    
     @State private var IsAddHabitVisible = false
     
-    @State private var habitArray: [String] = []
-    @State private var habitDict: [String: String] = [:]
-            
     var body: some View {
         VStack {
             Spacer()
                 .frame(height: 100)
+            
+//            MARK: WEEKDAY HStack
             HStack {
+                
+//                MARK: LEFT CHEVRON
                 Button(action: {
-                    if WeekDayIndexCounter != 0 {
-                        WeekDayIndexCounter -= 1
+                    if objects.WeekDayIndexCounter != 0 {
+                        objects.WeekDayIndexCounter -= 1
                     } else {
-                        WeekDayIndexCounter = 6
+                        objects.WeekDayIndexCounter = 6
                     }
-                    print(WeekDayIndexCounter)
+                    print(objects.WeekDayIndexCounter)
                 }) {
                     Image(systemName: "chevron.left")
                         .font(.largeTitle)
@@ -39,20 +37,22 @@ struct HabitTracker: View {
                 
                 Spacer()
                 
-                Text(WeekDay[WeekDayIndexCounter])
+//                MARK: WEEKDAY ARRAY
+                Text(objects.WeekDay[objects.WeekDayIndexCounter])
                     .font(.title)
                     .fontWeight(.bold)
                     .shadow(radius: 3, x: 3, y: 3)
                 
                 Spacer()
                 
+//                MARK: RIGHT CHEVRON
                 Button(action: {
-                    if WeekDayIndexCounter != 6 {
-                        WeekDayIndexCounter += 1
+                    if objects.WeekDayIndexCounter != 6 {
+                        objects.WeekDayIndexCounter += 1
                     } else {
-                        WeekDayIndexCounter = 0
+                        objects.WeekDayIndexCounter = 0
                     }
-                    print(WeekDayIndexCounter)
+                    print(objects.WeekDayIndexCounter)
                 }) {
                     Image(systemName: "chevron.right")
                         .font(.largeTitle)
@@ -64,13 +64,14 @@ struct HabitTracker: View {
             Spacer()
                 .frame(height: 80)
             
-            ForEach(habitArray, id: \.self) { habit in
+//            MARK: HABIT ARRAY
+            ForEach(objects.WeekDayHabits[objects.WeekDay[objects.WeekDayIndexCounter]] ?? [], id: \.self) { habit in
                 VStack {
-                    Text(habit)
+                    Text(objects.habitIdDict[habit] ?? "")
                         .font(.title)
                         .fontWeight(.bold)
                         .shadow(radius: 3, x: 3, y: 3)
-                    Text(habitDict[habit] ?? "10:00")
+                    Text(objects.habitDict[habit] ?? "")
                         .font(.body)
                 }
                 .offset(objects.habitPositions[habit] ?? .zero)
@@ -79,7 +80,7 @@ struct HabitTracker: View {
                         Rectangle()
                             .frame(height: 4)
                             .foregroundColor(.black)
-                            .offset(x: objects.habitPositions[habit]?.width ?? 0, y: -6)
+                            .offset(x: objects.habitPositions[habit]?.width ?? 0, y: -7)
                         : nil
                 )
                 .gesture(
@@ -108,6 +109,7 @@ struct HabitTracker: View {
             
             Spacer()
             
+//            MARK: ADD HABIT Button
             HStack {
                 Button(action: {
                     IsAddHabitVisible = true
@@ -119,18 +121,21 @@ struct HabitTracker: View {
                 .sheet(isPresented: $IsAddHabitVisible) {
                     ZStack {
                         BlurEffect(style: .light)
-                        HabitAdder(habitArray: $habitArray, habitDict: $habitDict)
+                        HabitAdder()
                             .presentationDetents([.height(300)])
                     }
                 }
             }
+            
             Spacer()
                 .frame(height: 30)
         }
         .padding(.vertical, 10)
+        
+//        MARK: REMOVE HABIT CODE
         .onChange(of: objects.selectedHabit) { habitToRemove in
             if let habitToRemove = habitToRemove {
-                habitArray.removeAll { $0 == habitToRemove }
+                objects.habitIdArray.removeAll { $0 == habitToRemove }
             }
         }
     }
