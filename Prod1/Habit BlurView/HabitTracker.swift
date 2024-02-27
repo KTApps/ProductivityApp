@@ -15,7 +15,7 @@ struct HabitTracker: View {
     var body: some View {
         VStack {
             Spacer()
-                .frame(height: 100)
+                .frame(height: 120)
             
 //            MARK: WEEKDAY HStack
             HStack {
@@ -30,18 +30,16 @@ struct HabitTracker: View {
                     print(objects.WeekDayIndexCounter)
                 }) {
                     Image(systemName: "chevron.left")
-                        .font(.largeTitle)
-                        .fontWeight(.bold)
                         .shadow(radius: 3, x: 3, y: 3)
                 }
+                .padding(20)
                 
                 Spacer()
                 
 //                MARK: WEEKDAY ARRAY
                 Text(objects.WeekDay[objects.WeekDayIndexCounter])
-                    .font(.title)
-                    .fontWeight(.bold)
                     .shadow(radius: 3, x: 3, y: 3)
+                    .fontWeight(.heavy)
                 
                 Spacer()
                 
@@ -55,56 +53,60 @@ struct HabitTracker: View {
                     print(objects.WeekDayIndexCounter)
                 }) {
                     Image(systemName: "chevron.right")
-                        .font(.largeTitle)
-                        .fontWeight(.bold)
                         .shadow(radius: 3, x: 3, y: 3)
                 }
+                .padding(20)
             }
-            .padding(.horizontal, 40)
+            .font(.custom("Big title", size: 40))
+            .fontWeight(.black)
+            .padding(.horizontal, 20)
             Spacer()
                 .frame(height: 80)
             
 //            MARK: HABIT ARRAY
-            ForEach(objects.WeekDayHabits[objects.WeekDay[objects.WeekDayIndexCounter]] ?? [], id: \.self) { habit in
+            ForEach(objects.habitIdArray, id: \.self) { habit in
                 VStack {
-                    Text(objects.habitIdDict[habit] ?? "")
-                        .font(.title)
-                        .fontWeight(.bold)
-                        .shadow(radius: 3, x: 3, y: 3)
-                    Text(objects.habitDict[habit] ?? "")
-                        .font(.body)
-                }
-                .offset(objects.habitPositions[habit] ?? .zero)
-                .overlay(
-                    objects.isHabitStriked[habit] ?? false ?
-                        Rectangle()
-                            .frame(height: 4)
-                            .foregroundColor(.black)
-                            .offset(x: objects.habitPositions[habit]?.width ?? 0, y: -7)
-                        : nil
-                )
-                .gesture(
-                    DragGesture()
-                        .onChanged({ value in
-                            let movement = CGSize(width: value.translation.width, height: 0)
-                            objects.habitPositions[habit] = movement
-                            if let position = objects.habitPositions[habit], position.width < -90 || position.width > 90 {
+                    HStack {
+                        Image(systemName: objects.habitTickBoxDict[habit] ?? false ? "checkmark.square.fill" : "square")
+                            .font(.custom("Big Header", size: 20))
+                        
+                        Spacer()
+                            .frame(width: 105)
+                        
+                        Text(objects.habitIdDict[habit] ?? "")
+                            .font(.custom("Big Header", size: 30))
+                            .overlay(
+                                objects.isHabitStriked[habit] ?? false ?
+                                    Rectangle()
+                                        .frame(height: 4)
+                                        .colorInvert()
+                                        .padding(.horizontal, -10)
+                                    : nil
+                            )
+                        
+                        Spacer()
+                        
+                        Text(objects.habitDict[habit] ?? "")
+                            .font(.custom("Big Header", size: 20))
+                    }
+                    .fontWeight(.black)
+                    .shadow(radius: 3, x: 3, y: 3)
+                    .padding(.horizontal, 30)
+                    .padding(.vertical, 1)
+                    .onTapGesture {
+                        objects.habitTickBoxDict[habit]?.toggle()
+                    }
+                    .gesture(
+                        LongPressGesture(minimumDuration: 1.5)
+                            .onChanged { _ in
                                 objects.isHabitStriked[habit] = true
-                            } else {
+                            }
+                            .onEnded { _ in
                                 objects.isHabitStriked[habit] = false
-                            }
-                        })
-                        .onEnded({ value in
-                            if let position = objects.habitPositions[habit], position.width < -90 || position.width > 90 {
                                 objects.selectedHabit = habit
-                                objects.habitPositions[habit] = .zero
-                            } else {
-                                objects.habitPositions[habit] = .zero
                             }
-                        })
-                )
-                Spacer()
-                    .frame(height: 15)
+                    )
+                }
             }
             
             Spacer()
@@ -115,9 +117,10 @@ struct HabitTracker: View {
                     IsAddHabitVisible = true
                 }) {
                     Text("Add Habit")
-                        .font(.title3)
+                        .font(.title)
                         .fontWeight(.bold)
                 }
+                .padding(20)
                 .sheet(isPresented: $IsAddHabitVisible) {
                     ZStack {
                         BlurEffect(style: .light)

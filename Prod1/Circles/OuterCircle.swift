@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import Charts
 
 struct OuterCircle: View {
     var body: some View {

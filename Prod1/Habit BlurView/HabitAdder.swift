@@ -16,15 +16,9 @@ struct HabitAdder: View {
     private func habitAppender() {
         let habitId = UUID().uuidString
         (objects.habitIdArray).append(habitId)
-        (objects.habitIdDict)[habitId] = habitName
+        objects.habitIdDict[habitId] = habitName
         objects.habitDict[habitId] = habitTime
-        let weekday = objects.WeekDay[objects.WeekDayIndexCounter]
-        if var existingArray = objects.WeekDayHabits[weekday] { // if 'existingArray' != nil
-            existingArray.append(habitId)
-            objects.WeekDayHabits[weekday] = existingArray
-        } else {
-            objects.WeekDayHabits[weekday] = [habitId]
-        }
+        objects.habitTickBoxDict[habitId] = false
     }
         
     var body: some View {
@@ -69,7 +63,6 @@ struct HabitAdder: View {
 //                MARK: SAVE Button
                 Button(action: {
                     habitAppender()
-                    print(objects.WeekDayHabits)
                     habitName = ""
                     habitTime = ""
                 }) {

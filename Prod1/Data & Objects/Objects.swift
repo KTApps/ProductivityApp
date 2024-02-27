@@ -22,5 +22,8 @@ class Objects: ObservableObject {
     @Published var WeekDayIndexCounter: Int = 0
     @Published var WeekDay: [String] = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"]
     
-    @Published var TaskDictionary: [String: Int] = [:] // Dictionary = [ Task Title : Time taken on task]
+    @Published var IsTimerOn: Bool = false
+    @Published var TimerCount: Int = 0
+    @Published var timer = Timer.publish(every: 60, on: .main, in: .common).autoconnect() // Just initializing 'timer' variable
+    @Published var TaskTimerDictionary: [String: Int] = [:] // Dictionary = [ Task Title : TimerCount for task]
 }

@@ -11,6 +11,8 @@
 		082D11B42B82910100E39B40 /* HabitAdder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 082D11B32B82910100E39B40 /* HabitAdder.swift */; };
 		082D11B72B8291E400E39B40 /* ViewYourProgress.swift in Sources */ = {isa = PBXBuildFile; fileRef = 082D11B62B8291E400E39B40 /* ViewYourProgress.swift */; };
 		085E9DA62B8A73E50018D661 /* DropMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 085E9DA52B8A73E50018D661 /* DropMenu.swift */; };
+		0890779D2B8E6E5C0066E76C /* InnerCircle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0890779C2B8E6E5C0066E76C /* InnerCircle.swift */; };
+		0890779F2B8E6E680066E76C /* OuterCircle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0890779E2B8E6E680066E76C /* OuterCircle.swift */; };
 		08EB383C2B7FC9F000141B28 /* BlurView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08EB383B2B7FC9F000141B28 /* BlurView.swift */; };
 		08EB383E2B7FCF6700141B28 /* HabitTracker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08EB383D2B7FCF6700141B28 /* HabitTracker.swift */; };
 		7646F2AD2B7837D20075908C /* Prod1App.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7646F2AC2B7837D20075908C /* Prod1App.swift */; };
@@ -25,6 +27,8 @@
 		082D11B32B82910100E39B40 /* HabitAdder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HabitAdder.swift; sourceTree = "<group>"; };
 		082D11B62B8291E400E39B40 /* ViewYourProgress.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewYourProgress.swift; sourceTree = "<group>"; };
 		085E9DA52B8A73E50018D661 /* DropMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DropMenu.swift; sourceTree = "<group>"; };
+		0890779C2B8E6E5C0066E76C /* InnerCircle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InnerCircle.swift; sourceTree = "<group>"; };
+		0890779E2B8E6E680066E76C /* OuterCircle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OuterCircle.swift; sourceTree = "<group>"; };
 		08EB383B2B7FC9F000141B28 /* BlurView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlurView.swift; sourceTree = "<group>"; };
 		08EB383D2B7FCF6700141B28 /* HabitTracker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HabitTracker.swift; sourceTree = "<group>"; };
 		7646F2A92B7837D20075908C /* Prod1.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Prod1.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -56,12 +60,22 @@
 			path = "Habit BlurView";
 			sourceTree = "<group>";
 		};
-		085E9DA72B8A73EF0018D661 /* Data */ = {
+		085E9DA72B8A73EF0018D661 /* Data & Objects */ = {
 			isa = PBXGroup;
 			children = (
+				081550042B869BA800A50212 /* Objects.swift */,
 				085E9DA52B8A73E50018D661 /* DropMenu.swift */,
 			);
-			path = Data;
+			path = "Data & Objects";
+			sourceTree = "<group>";
+		};
+		087EC7C52B8E6CC6007B2EFC /* Circles */ = {
+			isa = PBXGroup;
+			children = (
+				0890779C2B8E6E5C0066E76C /* InnerCircle.swift */,
+				0890779E2B8E6E680066E76C /* OuterCircle.swift */,
+			);
+			path = Circles;
 			sourceTree = "<group>";
 		};
 		7646F2A02B7837D20075908C = {
@@ -85,10 +99,10 @@
 			children = (
 				7646F2AC2B7837D20075908C /* Prod1App.swift */,
 				7646F2AE2B7837D20075908C /* ContentView.swift */,
-				082D11B62B8291E400E39B40 /* ViewYourProgress.swift */,
-				081550042B869BA800A50212 /* Objects.swift */,
+				087EC7C52B8E6CC6007B2EFC /* Circles */,
 				082D11B52B82912D00E39B40 /* Habit BlurView */,
-				085E9DA72B8A73EF0018D661 /* Data */,
+				082D11B62B8291E400E39B40 /* ViewYourProgress.swift */,
+				085E9DA72B8A73EF0018D661 /* Data & Objects */,
 				7646F2B02B7837D40075908C /* Assets.xcassets */,
 				7646F2B22B7837D40075908C /* Preview Content */,
 			);
@@ -184,8 +198,10 @@
 				7646F2AF2B7837D20075908C /* ContentView.swift in Sources */,
 				082D11B72B8291E400E39B40 /* ViewYourProgress.swift in Sources */,
 				7646F2AD2B7837D20075908C /* Prod1App.swift in Sources */,
+				0890779F2B8E6E680066E76C /* OuterCircle.swift in Sources */,
 				08EB383E2B7FCF6700141B28 /* HabitTracker.swift in Sources */,
 				08EB383C2B7FC9F000141B28 /* BlurView.swift in Sources */,
+				0890779D2B8E6E5C0066E76C /* InnerCircle.swift in Sources */,
 				085E9DA62B8A73E50018D661 /* DropMenu.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -320,6 +336,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"Prod1/Preview Content\"";
+				DEVELOPMENT_TEAM = 5A6U5J7KQK;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
@@ -348,6 +365,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"Prod1/Preview Content\"";
+				DEVELOPMENT_TEAM = 5A6U5J7KQK;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;

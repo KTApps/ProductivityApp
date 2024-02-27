@@ -8,13 +8,13 @@
 import SwiftUI
 
 struct ContentView: View {
+    @EnvironmentObject var objects: Objects
     var dropMenu = DropMenu.self
     
     @State var TaskName = "Task"
 
 //    MARK: BOOLEAN STATE VARIABLES
     @State var IsTaskDropDownVisible = false
-    @State var IsBlurViewVisible = false
     @State private var IsViewYourProgressVisible = false
     
     var body: some View {
@@ -100,18 +100,39 @@ struct ContentView: View {
                 .padding(.horizontal, 10)
                 
 //                            MARK: HOUR GLASS Label
-                Label("00:00:00", systemImage: "hourglass.bottomhalf.fill")
-                    .font(.callout)
-                    .bold()
-                    .padding(.vertical, 30)
-                    .offset(x: -5, y: -5)
+                HStack {
+                    Label("\(objects.TimerCount)", systemImage: "hourglass.bottomhalf.fill")
+                        .onReceive(objects.timer) { time in
+                            if objects.IsTimerOn {
+                                objects.TimerCount += 1
+                            }
+                        }
+                    
+                    Spacer()
+                        .frame(width: 30)
+                    
+                    Button(action: {
+                        objects.IsTimerOn.toggle()
+                        if objects.IsTimerOn {
+                            objects.timer = Timer.publish(every: 1, on: .main, in: .common).autoconnect()
+                        } else {
+                            objects.timer.upstream.connect().cancel()
+                        }
+                    }) {
+                        Image(systemName: objects.IsTimerOn ? "stop.circle.fill" : "play.circle.fill")
+                    }
+                }
+                .font(.title3)
+                .bold()
+                .padding(.vertical, 30)
+                .offset(x: -5, y: -5)
                 
 //                            MARK: CIRCLE ZStack
                 ZStack{
                     
 //                                MARK: INNER CIRCLE Button
                     Button(action: {
-                        IsBlurViewVisible = true
+                        objects.IsBlurViewVisible = true
                     }) {
                         Circle()
                             .stroke(lineWidth: 20)
@@ -185,13 +206,9 @@ struct ContentView: View {
             .preferredColorScheme(/*@START_MENU_TOKEN@*/.dark/*@END_MENU_TOKEN@*/)
             
 //            MARK: BlurView Button
-            if IsBlurViewVisible {
-                Button(action: {
-                    IsBlurViewVisible = false
-                }) {
-                    BlurView()
-                        .ignoresSafeArea()
-                }
+            if objects.IsBlurViewVisible {
+                BlurView()
+                    .ignoresSafeArea()
             }
         }
     }
