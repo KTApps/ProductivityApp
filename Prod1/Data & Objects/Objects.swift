@@ -29,7 +29,6 @@ class Objects: ObservableObject {
 //    MARK: Task DropDown Menu
     @Published var dropMenu = DropMenu.self // [DropMenu]
     @Published var IsTaskDropDownVisible = false
-    @Published var TaskName = "Task"
     
 //    MARK: Task Timer
     @Published var IsTimerOn: Bool = false

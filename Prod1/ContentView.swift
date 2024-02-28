@@ -6,15 +6,17 @@
 //
 
 import SwiftUI
+import Charts
 
 struct ContentView: View {
     @EnvironmentObject var object: Objects
     
+    @State var TaskName = "Task"
     @State var TaskTime: Int = 0
     @State var TimerCount: Int = 0
     private func TaskTimer() -> Int? {
         for item in drop { // Use '.forEach{}' when performing an operation. Use 'ForEach(){}' when presenting a view.
-            if (item.title == object.TaskName) {
+            if (item.title == TaskName) {
                 if object.TaskTimerDictionary[item.title] != nil {
                     object.TaskTimerDictionary[item.title]? += 1
                 } else {
@@ -30,7 +32,7 @@ struct ContentView: View {
     
     private func resetTimer() -> Int? {
         for item in drop {
-            if (item.title == object.TaskName) {
+            if (item.title == TaskName) {
                 if object.TaskTimerDictionary[item.title] == nil {
                     return 0
                 } else {
@@ -61,7 +63,7 @@ struct ContentView: View {
                                 ForEach(drop) { item in
                                     Button(action: {
                                         withAnimation {
-                                            object.TaskName = item.title
+                                            TaskName = item.title
                                             object.IsTaskDropDownVisible = true
                                         }
                                         TaskTime = resetTimer() ?? 0
@@ -104,17 +106,17 @@ struct ContentView: View {
 //                    MARK: TASK TITLE ZStack
                     ZStack{
                         RoundedRectangle(cornerRadius: 10)
-                            .frame(height: 60)
+                            .frame(height: 30)
                             .foregroundColor(.black)
                         HStack{
-                            Text(object.TaskName)
-                                .font(.title2)
+                            Text(TaskName)
+                                .font(.largeTitle)
                             Image(systemName: "chevron.down")
                         }
                         .bold()
                         .foregroundColor(.white)
                     }
-                    .offset(y: 20)
+                    .offset(y: 10)
                     .onTapGesture {
                         withAnimation {
                             object.IsTaskDropDownVisible.toggle()
@@ -147,13 +149,24 @@ struct ContentView: View {
                         Image(systemName: object.IsTimerOn ? "stop.circle.fill" : "play.circle.fill")
                     }
                 }
-                .font(.title3)
+                .font(.title)
                 .bold()
-                .padding(.vertical, 30)
-                .offset(x: -5, y: -5)
+                .offset(x: -5, y: 20)
                 
 //                            MARK: CIRCLE ZStack
                 ZStack{
+                    
+//                                MARK: OUTER CIRCLE
+                    Chart(drop) { task in
+                        SectorMark(
+                            angle: .value("Time Spent", object.TaskTimerDictionary[task.title] ?? 0),
+                            innerRadius: 140,
+                            outerRadius: 170,
+                            angularInset: 1
+                        )
+                        .foregroundStyle(task.colour)
+                        .cornerRadius(5)
+                    }
                     
 //                                MARK: INNER CIRCLE Button
                     Button(action: {
@@ -166,18 +179,6 @@ struct ContentView: View {
                             .frame(width: 220, height: 220)
                     }
                     
-//                                MARK: OUTER CIRCLE
-                    Circle()
-                        .stroke(
-                            style: StrokeStyle(
-                                lineWidth: 20,
-                                lineCap: .round,
-                                lineJoin: .round
-                            )
-                        )
-                        .foregroundColor(.blue)
-                        .rotationEffect(.degrees(-90))
-                        .frame(width: 300, height: 300)
                     VStack{
                         Text("3 Hours")
                             .font(.callout)
@@ -185,14 +186,12 @@ struct ContentView: View {
                             .font(.caption) // placeholder for date
                     }
                 }
-                Spacer()
-                    .frame(height: 60)
                 
 //                            MARK: LAST 10 DAYS BLOCK
                 VStack{
                     HStack{
                         Text("Last 10 Days")
-                            .font(.headline)
+                            .font(.title3)
                             .fontWeight(.bold)
                         Spacer()
                     }
@@ -207,7 +206,6 @@ struct ContentView: View {
                         
 //                                    MARK: VIEW YOUR PROGRESS Button
                         VStack{
-                            Spacer()
                             Button(action: {
                                 object.IsViewYourProgressVisible = true
                             }) {

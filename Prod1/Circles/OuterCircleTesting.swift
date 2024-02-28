@@ -11,7 +11,7 @@ import Charts
 struct OuterCircle: View {
     @EnvironmentObject var object: Objects
     
-    @State private var selectedCount: Int?
+    @State private var selectedCount: Int? // Each sector has a different Int that represent their position. '?' = no sector
     @State private var selectedSector: DropMenu?
     
     var body: some View {
@@ -20,32 +20,32 @@ struct OuterCircle: View {
                 SectorMark(
                     angle: .value("Time Spent", task.placeholder),
                     innerRadius: 140,
-                    outerRadius: 170,
+                    outerRadius: selectedSector?.title == task.title ? 190 : 170,
                     angularInset: 1
                 )
                 .foregroundStyle(task.colour)
                 .cornerRadius(5)
             }
-            .chartAngleSelection(value: $selectedCount)
+            .chartAngleSelection(value: $selectedCount) // when a sector is clicked, 'selectedCount' changes
             if let selectedSector {
                 Text(selectedSector.title)
             }
         }
         .onChange(of: selectedCount) { oldValue, newValue in
-            if let newValue {
+            if let newValue { // if the value of selected count changed from the oldValue then...
                 withAnimation {
-                    getSelectedWineType(value: newValue)
+                    getSelectedSector(value: newValue) // Takes in Int value of new selected sector
                 }
             }
         }
     }
     
-    private func getSelectedWineType(value: Int) {
+    private func getSelectedSector(value: Int) {
         var cumulativeTotal = 0
-        let wineType = drop.first { wineType in
-            cumulativeTotal += wineType.placeholder
+        let Task = drop.first { task in
+            cumulativeTotal += task.placeholder
             if value <= cumulativeTotal {
-                selectedSector = wineType
+                selectedSector = task
                 return true
             }
             return false

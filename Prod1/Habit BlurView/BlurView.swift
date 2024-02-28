@@ -8,9 +8,15 @@
 import SwiftUI
 
 struct BlurView: View {
+    @EnvironmentObject var object: Objects
+    
     var body: some View {
         ZStack {
-            BlurEffect(style: .systemMaterialDark)
+            Button(action: {
+                object.IsBlurViewVisible = false
+            }) {
+                BlurEffect(style: .systemMaterialDark)
+            }
             HabitTracker()
                 .foregroundColor(Color.white)
         }
