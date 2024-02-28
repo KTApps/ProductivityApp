@@ -8,14 +8,38 @@
 import SwiftUI
 
 struct ContentView: View {
-    @EnvironmentObject var objects: Objects
-    var dropMenu = DropMenu.self
+    @EnvironmentObject var object: Objects
     
-    @State var TaskName = "Task"
-
-//    MARK: BOOLEAN STATE VARIABLES
-    @State var IsTaskDropDownVisible = false
-    @State private var IsViewYourProgressVisible = false
+    @State var TaskTime: Int = 0
+    @State var TimerCount: Int = 0
+    private func TaskTimer() -> Int? {
+        for item in drop { // Use '.forEach{}' when performing an operation. Use 'ForEach(){}' when presenting a view.
+            if (item.title == object.TaskName) {
+                if object.TaskTimerDictionary[item.title] != nil {
+                    object.TaskTimerDictionary[item.title]? += 1
+                } else {
+                    TimerCount = 0
+                    TimerCount += 1
+                    object.TaskTimerDictionary[item.title] = TimerCount
+                }
+                return object.TaskTimerDictionary[item.title]
+            }
+        }
+        return nil
+    }
+    
+    private func resetTimer() -> Int? {
+        for item in drop {
+            if (item.title == object.TaskName) {
+                if object.TaskTimerDictionary[item.title] == nil {
+                    return 0
+                } else {
+                    return object.TaskTimerDictionary[item.title]
+                }
+            }
+        }
+        return nil
+    }
     
     var body: some View {
         
@@ -37,9 +61,10 @@ struct ContentView: View {
                                 ForEach(drop) { item in
                                     Button(action: {
                                         withAnimation {
-                                            TaskName = item.title
-                                            IsTaskDropDownVisible = true
+                                            object.TaskName = item.title
+                                            object.IsTaskDropDownVisible = true
                                         }
+                                        TaskTime = resetTimer() ?? 0
                                     }) {
                                         HStack {
                                             Text(item.title)
@@ -73,8 +98,8 @@ struct ContentView: View {
                             .padding(.vertical, 15)
                         }
                     }
-                    .frame(height: IsTaskDropDownVisible ? 200 : 0) // If show = true, ZStack height = 220, else height = 0
-                    .offset(y: IsTaskDropDownVisible ? 160 : 20) // Control Transition of DropDown
+                    .frame(height: object.IsTaskDropDownVisible ? 200 : 0) // If show = true, ZStack height = 220, else height = 0
+                    .offset(y: object.IsTaskDropDownVisible ? 160 : 20) // Control Transition of DropDown
                     
 //                    MARK: TASK TITLE ZStack
                     ZStack{
@@ -82,7 +107,7 @@ struct ContentView: View {
                             .frame(height: 60)
                             .foregroundColor(.black)
                         HStack{
-                            Text(TaskName)
+                            Text(object.TaskName)
                                 .font(.title2)
                             Image(systemName: "chevron.down")
                         }
@@ -92,7 +117,7 @@ struct ContentView: View {
                     .offset(y: 20)
                     .onTapGesture {
                         withAnimation {
-                            IsTaskDropDownVisible.toggle()
+                            object.IsTaskDropDownVisible.toggle()
                         }
                     }
                 }
@@ -101,10 +126,10 @@ struct ContentView: View {
                 
 //                            MARK: HOUR GLASS Label
                 HStack {
-                    Label("\(objects.TimerCount)", systemImage: "hourglass.bottomhalf.fill")
-                        .onReceive(objects.timer) { time in
-                            if objects.IsTimerOn {
-                                objects.TimerCount += 1
+                    Label("\(TaskTime)", systemImage: "hourglass.bottomhalf.fill")
+                        .onReceive(object.timer) { time in
+                            if object.IsTimerOn {
+                                TaskTime = TaskTimer() ?? 0
                             }
                         }
                     
@@ -112,14 +137,14 @@ struct ContentView: View {
                         .frame(width: 30)
                     
                     Button(action: {
-                        objects.IsTimerOn.toggle()
-                        if objects.IsTimerOn {
-                            objects.timer = Timer.publish(every: 1, on: .main, in: .common).autoconnect()
+                        object.IsTimerOn.toggle()
+                        if object.IsTimerOn {
+                            object.timer = Timer.publish(every: 1, on: .main, in: .common).autoconnect()
                         } else {
-                            objects.timer.upstream.connect().cancel()
+                            object.timer.upstream.connect().cancel()
                         }
                     }) {
-                        Image(systemName: objects.IsTimerOn ? "stop.circle.fill" : "play.circle.fill")
+                        Image(systemName: object.IsTimerOn ? "stop.circle.fill" : "play.circle.fill")
                     }
                 }
                 .font(.title3)
@@ -132,7 +157,7 @@ struct ContentView: View {
                     
 //                                MARK: INNER CIRCLE Button
                     Button(action: {
-                        objects.IsBlurViewVisible = true
+                        object.IsBlurViewVisible = true
                     }) {
                         Circle()
                             .stroke(lineWidth: 20)
@@ -184,7 +209,7 @@ struct ContentView: View {
                         VStack{
                             Spacer()
                             Button(action: {
-                                IsViewYourProgressVisible = true
+                                object.IsViewYourProgressVisible = true
                             }) {
                                 ZStack{
                                     RoundedRectangle(cornerRadius: 10)
@@ -194,7 +219,7 @@ struct ContentView: View {
                                 }
                                 .foregroundColor(.white)
                             }
-                            .sheet(isPresented: $IsViewYourProgressVisible) {
+                            .sheet(isPresented: $object.IsViewYourProgressVisible) {
                                 ViewYourProgress()
                                     .presentationDetents([.medium, .large])
                             }
@@ -206,7 +231,7 @@ struct ContentView: View {
             .preferredColorScheme(/*@START_MENU_TOKEN@*/.dark/*@END_MENU_TOKEN@*/)
             
 //            MARK: BlurView Button
-            if objects.IsBlurViewVisible {
+            if object.IsBlurViewVisible {
                 BlurView()
                     .ignoresSafeArea()
             }

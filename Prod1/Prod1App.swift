@@ -10,13 +10,13 @@ import Modals
 
 @main
 struct Prod1App: App {
-    let objects = Objects()
+    let object = Objects()
     
     var body: some Scene {
         WindowGroup {
             ModalStackView {
                 ContentView()
-                    .environmentObject(objects)
+                    .environmentObject(object)
             }
         }
     }

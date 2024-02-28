@@ -8,17 +8,17 @@
 import SwiftUI
 
 struct HabitAdder: View {
-    @EnvironmentObject var objects: Objects
+    @EnvironmentObject var object: Objects
     
     @State var habitName = ""
     @State var habitTime = ""
     
     private func habitAppender() {
         let habitId = UUID().uuidString
-        (objects.habitIdArray).append(habitId)
-        objects.habitIdDict[habitId] = habitName
-        objects.habitDict[habitId] = habitTime
-        objects.habitTickBoxDict[habitId] = false
+        (object.habitIdArray).append(habitId)
+        object.habitIdDict[habitId] = habitName
+        object.habitDict[habitId] = habitTime
+        object.habitTickBoxDict[habitId] = false
     }
         
     var body: some View {
