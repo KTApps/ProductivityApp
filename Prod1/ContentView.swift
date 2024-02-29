@@ -141,7 +141,7 @@ struct ContentView: View {
                     Button(action: {
                         object.IsTimerOn.toggle()
                         if object.IsTimerOn {
-                            object.timer = Timer.publish(every: 1, on: .main, in: .common).autoconnect()
+                            object.timer = Timer.publish(every: 0.1, on: .main, in: .common).autoconnect()
                         } else {
                             object.timer.upstream.connect().cancel()
                         }
