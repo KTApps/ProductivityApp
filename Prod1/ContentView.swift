@@ -7,6 +7,7 @@
 
 import SwiftUI
 import Charts
+// hi
 
 struct ContentView: View {
     @EnvironmentObject var object: Objects
