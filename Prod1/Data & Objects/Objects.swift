@@ -33,7 +33,11 @@ class Objects: ObservableObject {
 //    MARK: Task Timer
     @Published var IsTimerOn: Bool = false
     @Published var timer = Timer.publish(every: 60, on: .main, in: .common).autoconnect() // Just initializing 'timer' variable
-    @Published var TaskTimerDictionary: [String: Int] = [:] // Dictionary = [ Task Title : TimerCount for task]
+    @Published var TaskTimerDictionary: [String: Int] = [:] // Dictionary = [Task Title : TimerCount for task]
+    
+//    MARK: Outer Circle
+    @Published var SelectedChartPosition: Int?
+    @Published var TaskSectorRange: [String: Range<Int>] = [:]
     
 //    MARK: View Your Progress
     @Published var IsViewYourProgressVisible = false

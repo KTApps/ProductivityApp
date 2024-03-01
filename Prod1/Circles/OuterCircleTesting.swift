@@ -35,6 +35,7 @@ struct OuterCircle: View {
             if let newValue { // if the value of selected count changed from the oldValue then...
                 withAnimation {
                     getSelectedSector(value: newValue) // Takes in Int value of new selected sector
+                    print("\(newValue)")
                 }
             }
         }

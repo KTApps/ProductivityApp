@@ -43,6 +43,29 @@ struct ContentView: View {
         return nil
     }
     
+    private func TaskSectorRange() -> [String: Range<Int>]{
+        var previousValue: Int?
+        var IsfirstIteration = false
+        print("\(object.TaskTimerDictionary.count)")
+        if object.TaskTimerDictionary.count == 1 {
+            IsfirstIteration = true
+        }
+        for (key, value) in object.TaskTimerDictionary {
+            print("\(IsfirstIteration)")
+            if IsfirstIteration {
+                object.TaskSectorRange[key] = 0..<value
+                previousValue = value
+                IsfirstIteration = false
+            } else {
+                if let prevValue = previousValue {
+                    object.TaskSectorRange[key] = prevValue..<(prevValue + value)
+                    previousValue = prevValue + value
+                }
+            }
+        }
+        return object.TaskSectorRange
+    }
+    
     var body: some View {
         
 //        MARK: ZStack for BlurView
@@ -64,7 +87,7 @@ struct ContentView: View {
                                     Button(action: {
                                         withAnimation {
                                             TaskName = item.title
-                                            object.IsTaskDropDownVisible = true
+                                            object.IsTaskDropDownVisible.toggle()
                                         }
                                         TaskTime = resetTimer() ?? 0
                                     }) {
@@ -101,16 +124,18 @@ struct ContentView: View {
                         }
                     }
                     .frame(height: object.IsTaskDropDownVisible ? 200 : 0) // If show = true, ZStack height = 220, else height = 0
-                    .offset(y: object.IsTaskDropDownVisible ? 160 : 20) // Control Transition of DropDown
+                    .offset(y: object.IsTaskDropDownVisible ? 140 : 35) // Control Transition of DropDown
                     
 //                    MARK: TASK TITLE ZStack
                     ZStack{
                         RoundedRectangle(cornerRadius: 10)
-                            .frame(height: 30)
+                            .frame(height: 0)
                             .foregroundColor(.black)
                         HStack{
                             Text(TaskName)
                                 .font(.largeTitle)
+                            Spacer()
+                                .frame(width: 10)
                             Image(systemName: "chevron.down")
                         }
                         .bold()
@@ -144,6 +169,8 @@ struct ContentView: View {
                             object.timer = Timer.publish(every: 0.1, on: .main, in: .common).autoconnect()
                         } else {
                             object.timer.upstream.connect().cancel()
+                            TaskSectorRange()
+                            print("\(object.TaskSectorRange)")
                         }
                     }) {
                         Image(systemName: object.IsTimerOn ? "stop.circle.fill" : "play.circle.fill")
@@ -151,7 +178,7 @@ struct ContentView: View {
                 }
                 .font(.title)
                 .bold()
-                .offset(x: -5, y: 20)
+                .offset(x: -5, y: 15)
                 
 //                            MARK: CIRCLE ZStack
                 ZStack{
@@ -167,23 +194,29 @@ struct ContentView: View {
                         .foregroundStyle(task.colour)
                         .cornerRadius(5)
                     }
+                    .chartAngleSelection(value: $object.SelectedChartPosition)
+                    .onChange(of: object.SelectedChartPosition) {
+                        print("\(object.SelectedChartPosition)")
+                    }
                     
 //                                MARK: INNER CIRCLE Button
                     Button(action: {
                         object.IsBlurViewVisible = true
                     }) {
-                        Circle()
-                            .stroke(lineWidth: 20)
-                            .opacity(0.3)
-                            .foregroundColor(.gray)
-                            .frame(width: 220, height: 220)
-                    }
-                    
-                    VStack{
-                        Text("3 Hours")
-                            .font(.callout)
-                        Text("Today")
-                            .font(.caption) // placeholder for date
+                        ZStack {
+                            Circle()
+                                .stroke(lineWidth: 20)
+                                .opacity(0.3)
+                                .foregroundColor(.gray)
+                                .frame(width: 220, height: 220)
+                            VStack{
+                                Text("\(TaskTime) Seconds")
+                                    .font(.title2)
+                                Text("Today")
+                                    .font(.title3) // placeholder for date
+                            }
+                        }
+                        .foregroundColor(.white)
                     }
                 }
                 
@@ -209,13 +242,19 @@ struct ContentView: View {
                             Button(action: {
                                 object.IsViewYourProgressVisible = true
                             }) {
-                                ZStack{
-                                    RoundedRectangle(cornerRadius: 10)
-                                        .stroke(lineWidth: 1)
-                                        .frame(width: 180, height: 40)
-                                    Text("View Your Progress")
+                                VStack {
+                                    Spacer()
+                                        .frame(height: 100)
+                                    ZStack{
+                                        RoundedRectangle(cornerRadius: 10)
+                                            .stroke(lineWidth: 1)
+                                            .frame(width: 210, height: 40)
+                                        Text("View Your Progress")
+                                            .font(.title3)
+                                            .fontWeight(.bold)
+                                    }
+                                    .foregroundColor(.white)
                                 }
-                                .foregroundColor(.white)
                             }
                             .sheet(isPresented: $object.IsViewYourProgressVisible) {
                                 ViewYourProgress()

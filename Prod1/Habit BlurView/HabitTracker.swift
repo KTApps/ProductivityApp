@@ -55,7 +55,7 @@ struct HabitTracker: View {
                 }
                 .padding(20)
             }
-            .font(.custom("Big title", size: 40))
+            .font(.custom("Big title", size: 35))
             .fontWeight(.black)
             .padding(.horizontal, 20)
             Spacer()

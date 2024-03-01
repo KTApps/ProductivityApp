@@ -15,7 +15,7 @@ struct DropMenu: Identifiable {
     var colour: Color
 }
 var drop: [DropMenu] = [
-    DropMenu(title: "Piano", placeholder: 10, colour: .red), // drop[0].title
+    DropMenu(title: "Piano", placeholder: 30, colour: .red), // drop[0].title
     DropMenu(title: "Chess", placeholder: 12, colour: .orange), // drop[1].title
     DropMenu(title: "Creative Writing", placeholder: 5, colour: .yellow), // drop[2].title
     DropMenu(title: "Reading", placeholder: 18, colour: .green), // drop[3].title
