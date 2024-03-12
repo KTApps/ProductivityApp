@@ -9,6 +9,9 @@ import SwiftUI
 
 class Objects: ObservableObject {
     
+//    MARK: Authentication
+    @Published var secureField: Bool = false
+    
 //    MARK: BlurView
     @Published var IsBlurViewVisible: Bool = false
 

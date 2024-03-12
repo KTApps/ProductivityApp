@@ -44,27 +44,12 @@ struct ContentView: View {
         return nil
     }
     
-    private func TaskSectorRange() -> [String: Range<Int>]{
-        var previousValue: Int?
-        var IsfirstIteration = false
-        print("\(object.TaskTimerDictionary.count)")
-        if object.TaskTimerDictionary.count == 1 {
-            IsfirstIteration = true
+    private func ColorReturn(value: String) -> Color {
+        if (object.habitTickBoxDict[value] == true) {
+            return .blue
+        } else {
+            return .gray
         }
-        for (key, value) in object.TaskTimerDictionary {
-            print("\(IsfirstIteration)")
-            if IsfirstIteration {
-                object.TaskSectorRange[key] = 0..<value
-                previousValue = value
-                IsfirstIteration = false
-            } else {
-                if let prevValue = previousValue {
-                    object.TaskSectorRange[key] = prevValue..<(prevValue + value)
-                    previousValue = prevValue + value
-                }
-            }
-        }
-        return object.TaskSectorRange
     }
     
     var body: some View {
@@ -170,8 +155,6 @@ struct ContentView: View {
                             object.timer = Timer.publish(every: 0.1, on: .main, in: .common).autoconnect()
                         } else {
                             object.timer.upstream.connect().cancel()
-                            TaskSectorRange()
-                            print("\(object.TaskSectorRange)")
                         }
                     }) {
                         Image(systemName: object.IsTimerOn ? "stop.circle.fill" : "play.circle.fill")
@@ -195,10 +178,6 @@ struct ContentView: View {
                         .foregroundStyle(task.colour)
                         .cornerRadius(5)
                     }
-                    .chartAngleSelection(value: $object.SelectedChartPosition)
-                    .onChange(of: object.SelectedChartPosition) {
-                        print("\(object.SelectedChartPosition)")
-                    }
                     
 //                                MARK: INNER CIRCLE Button
                     Button(action: {
@@ -210,6 +189,15 @@ struct ContentView: View {
                                 .opacity(0.3)
                                 .foregroundColor(.gray)
                                 .frame(width: 220, height: 220)
+                            Chart(object.habitIdArray, id:\.self) { habit in
+                                SectorMark(
+                                    angle: .value("isTicked", 1),
+                                    innerRadius: 90,
+                                    outerRadius: 120,
+                                    angularInset: 1
+                                )
+                                .foregroundStyle(ColorReturn(value: habit))
+                            }
                             VStack{
                                 Text("\(TaskTime) Seconds")
                                     .font(.title2)

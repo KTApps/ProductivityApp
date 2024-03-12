@@ -8,11 +8,24 @@
 import SwiftUI
 
 struct SignUpInput: View {
+    
+    @Binding var text: String
+    let title: String
+    let placeholder: String
+    var secureField = false
+    
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        VStack(alignment: .leading) {
+            Text(title)
+            if secureField {
+                SecureField(placeholder, text: $text)
+            } else {
+                TextField(placeholder, text: $text)
+            }
+        }
     }
 }
 
 #Preview {
-    SignUpInput()
+    SignUpInput(text: .constant(""), title: "Email Address", placeholder: "name@example.com")
 }
