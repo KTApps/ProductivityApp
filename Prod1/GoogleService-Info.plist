@@ -3,17 +3,17 @@
 <plist version="1.0">
 <dict>
 	<key>API_KEY</key>
-	<string>AIzaSyC7bYDNaYEsnhqonUARGyv3yN0HX8f6sJM</string>
+	<string>AIzaSyBcFgkO0oiPA_cZ8-VLlrCOWqbYPTzuSB0</string>
 	<key>GCM_SENDER_ID</key>
-	<string>1057254872825</string>
+	<string>110327770936</string>
 	<key>PLIST_VERSION</key>
 	<string>1</string>
 	<key>BUNDLE_ID</key>
-	<string>com.DemoCompany.Housing-App</string>
+	<string>com.First.Prod1</string>
 	<key>PROJECT_ID</key>
-	<string>happ-81e5f</string>
+	<string>porductivityapp</string>
 	<key>STORAGE_BUCKET</key>
-	<string>happ-81e5f.appspot.com</string>
+	<string>porductivityapp.appspot.com</string>
 	<key>IS_ADS_ENABLED</key>
 	<false></false>
 	<key>IS_ANALYTICS_ENABLED</key>
@@ -25,6 +25,6 @@
 	<key>IS_SIGNIN_ENABLED</key>
 	<true></true>
 	<key>GOOGLE_APP_ID</key>
-	<string>1:1057254872825:ios:53ffc4a905c070da3d3428</string>
+	<string>1:110327770936:ios:e730cd4cc7a4c470d9dbcd</string>
 </dict>
 </plist>

@@ -7,7 +7,8 @@
 
 import SwiftUI
 
-struct SignInView: View {
+struct LogInView: View {
+    @EnvironmentObject var authModel: AuthModel
     
     @State private var email = ""
     @State private var password = ""
@@ -48,13 +49,16 @@ struct SignInView: View {
                         .frame(height: 30)
                     
                     Button {
-                        
+                        Task {
+                            try await authModel.logIn(withEmail: email, 
+                                                      password: password)
+                        }
                     } label: {
                         ZStack {
                             RoundedRectangle(cornerRadius: 10)
                                 .frame(width: 350, height: 40)
                                 .foregroundColor(/*@START_MENU_TOKEN@*/.blue/*@END_MENU_TOKEN@*/)
-                            Text("SIGN IN")
+                            Text("LOG IN")
                                 .font(.title3)
                                 .fontWeight(.bold)
                                 .foregroundColor(.white)
@@ -65,6 +69,7 @@ struct SignInView: View {
                     
                     NavigationLink {
                         SignUpView()
+                            .navigationBarBackButtonHidden(true)
                     } label: {
                         HStack {
                             Text("You don't have an account?")
@@ -81,5 +86,5 @@ struct SignInView: View {
 }
 
 #Preview {
-    SignInView()
+    LogInView()
 }

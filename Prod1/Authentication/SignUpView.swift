@@ -8,7 +8,10 @@
 import SwiftUI
 
 struct SignUpView: View {
+    @EnvironmentObject var authModel: AuthModel
     
+    @State private var name = ""
+    @State private var SureName = ""
     @State private var email = ""
     @State private var password = ""
     
@@ -26,7 +29,23 @@ struct SignUpView: View {
                     .foregroundColor(/*@START_MENU_TOKEN@*/.blue/*@END_MENU_TOKEN@*/)
                 
                 Spacer()
-                    .frame(height: 60)
+                    .frame(height: 20)
+                
+                SignUpInput(text: $name,
+                            title: "name",
+                            placeholder: "name")
+                .foregroundColor(.white)
+                
+                Spacer()
+                    .frame(height: 20)
+                
+                SignUpInput(text: $SureName,
+                            title: "Surename",
+                            placeholder: "name")
+                .foregroundColor(.white)
+                
+                Spacer()
+                    .frame(height: 20)
                 
                 SignUpInput(text: $email,
                             title: "Email Address",
@@ -37,7 +56,7 @@ struct SignUpView: View {
                 Spacer()
                     .frame(height: 20)
                 
-                SignUpInput(text: $email,
+                SignUpInput(text: $password,
                             title: "Password",
                             placeholder: "********",
                             secureField: true)
@@ -47,7 +66,11 @@ struct SignUpView: View {
                     .frame(height: 30)
                 
                 Button {
-                    
+                    Task {
+                        try await authModel.signUp(withEmail: email, 
+                                                   password: password,
+                                                   fullname: "\(name) \(SureName)")
+                    }
                 } label: {
                     ZStack {
                         RoundedRectangle(cornerRadius: 10)
@@ -61,6 +84,18 @@ struct SignUpView: View {
                 }
                 
                 Spacer()
+                
+                NavigationLink {
+                    LogInView()
+                        .navigationBarBackButtonHidden(true)
+                } label: {
+                    HStack {
+                        Text("Already have an account?")
+                        Text("LOG IN")
+                            .fontWeight(/*@START_MENU_TOKEN@*/.bold/*@END_MENU_TOKEN@*/)
+                    }
+                    .foregroundColor(.white)
+                }
             }
             .padding(.horizontal, 10)
         }
