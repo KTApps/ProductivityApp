@@ -52,6 +52,8 @@ struct ContentView: View {
         }
     }
     
+    @State var isSettingsVisible = false
+    
     var body: some View {
         
 //        MARK: ZStack for BlurView
@@ -120,9 +122,23 @@ struct ContentView: View {
                         HStack{
                             Text(TaskName)
                                 .font(.largeTitle)
-                            Spacer()
-                                .frame(width: 10)
+                                .offset(x: 20)
+
                             Image(systemName: "chevron.down")
+                                .offset(x: 25)
+                                
+                            Button {
+                                isSettingsVisible = true
+                            } label: {
+                                Image(systemName: "gear")
+                                    .resizable()
+                            }
+                            .frame(width: 25, height: 25)
+                            .offset(x: 110)
+                            .sheet(isPresented: $isSettingsVisible) {
+                                SettingsView()
+                                    .presentationDetents([.medium])
+                            }
                         }
                         .bold()
                         .foregroundColor(.white)

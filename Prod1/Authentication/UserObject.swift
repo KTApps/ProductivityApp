@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct UserObject: Identifiable, Codable {
+struct User: Identifiable, Codable {
     let id: String
     let fullname: String
     let email: String
@@ -22,6 +22,6 @@ struct UserObject: Identifiable, Codable {
     }
 }
 
-extension UserObject {
-    static var mockUser = UserObject(id: NSUUID().uuidString, fullname: "Hello World", email: "Hello@World.com")
+extension User {
+    static var mockUser = User(id: NSUUID().uuidString, fullname: "Hello World", email: "Hello@World.com")
 }
