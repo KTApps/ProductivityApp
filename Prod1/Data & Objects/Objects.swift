@@ -37,11 +37,54 @@ class Objects: ObservableObject {
     @Published var IsTimerOn: Bool = false
     @Published var timer = Timer.publish(every: 60, on: .main, in: .common).autoconnect() // Just initializing 'timer' variable
     @Published var TaskTimerDictionary: [String: Int] = [:] // Dictionary = [Task Title : TimerCount for task]
+    @Published var TaskName = "Task"
+    @Published var TaskTime: Int = 0
+    @Published var TimerCount: Int = 0
+    
+    func TaskTimer() -> Int? {
+        for item in drop { // Use '.forEach{}' when performing an operation. Use 'ForEach(){}' when presenting a view.
+            if (item.title == TaskName) {
+                if TaskTimerDictionary[item.title] != nil {
+                    TaskTimerDictionary[item.title]? += 1
+                } else {
+                    TimerCount = 0
+                    TimerCount += 1
+                    TaskTimerDictionary[item.title] = TimerCount
+                }
+                return TaskTimerDictionary[item.title]
+            }
+        }
+        return nil
+    }
+    
+    func resetTimer() -> Int? {
+        for item in drop {
+            if (item.title == TaskName) {
+                if TaskTimerDictionary[item.title] == nil {
+                    return 0
+                } else {
+                    return TaskTimerDictionary[item.title]
+                }
+            }
+        }
+        return nil
+    }
     
 //    MARK: Outer Circle
     @Published var SelectedChartPosition: Int?
     @Published var TaskSectorRange: [String: Range<Int>] = [:]
     
+    func ColorReturn(value: String) -> Color {
+        if (habitTickBoxDict[value] == true) {
+            return .blue
+        } else {
+            return .gray
+        }
+    }
+    
 //    MARK: View Your Progress
     @Published var IsViewYourProgressVisible = false
+    
+//    MARK: Settings
+    @Published var isSettingsVisible = false
 }

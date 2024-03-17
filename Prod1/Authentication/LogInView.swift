@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct LogInView: View {
-    @EnvironmentObject var authModel: AuthModel
+    @EnvironmentObject var authModel: AuthViewModel
     
     @State private var email = ""
     @State private var password = ""
@@ -30,18 +30,16 @@ struct LogInView: View {
                     Spacer()
                         .frame(height: 60)
                     
-                    SignUpInput(text: $email,
-                                title: "Email Address",
-                                placeholder: "name@example.com")
+                    Input(text: $email, title: "Email Address", placeHolder: "name@example.com")
                     .autocapitalization(/*@START_MENU_TOKEN@*/.none/*@END_MENU_TOKEN@*/)
                     .foregroundColor(.white)
                     
                     Spacer()
                         .frame(height: 20)
                     
-                    SignUpInput(text: $password,
+                    Input(text: $password,
                                 title: "Password",
-                                placeholder: "********",
+                                placeHolder: "********",
                                 secureField: true)
                     .foregroundColor(.white)
                     

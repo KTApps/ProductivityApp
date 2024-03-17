@@ -3,17 +3,17 @@
 <plist version="1.0">
 <dict>
 	<key>API_KEY</key>
-	<string>AIzaSyCMSILGWlUXN_F_sRglp3wzXE96-jJEr08</string>
+	<string>AIzaSyDY98MS6r9jTZyuo8dPY574DGZMsA_z-jM</string>
 	<key>GCM_SENDER_ID</key>
-	<string>859802622255</string>
+	<string>750448438874</string>
 	<key>PLIST_VERSION</key>
 	<string>1</string>
 	<key>BUNDLE_ID</key>
 	<string>com.First.Prod1</string>
 	<key>PROJECT_ID</key>
-	<string>productivityapp-75de8</string>
+	<string>prodapp-b90ac</string>
 	<key>STORAGE_BUCKET</key>
-	<string>productivityapp-75de8.appspot.com</string>
+	<string>prodapp-b90ac.appspot.com</string>
 	<key>IS_ADS_ENABLED</key>
 	<false></false>
 	<key>IS_ANALYTICS_ENABLED</key>
@@ -25,6 +25,6 @@
 	<key>IS_SIGNIN_ENABLED</key>
 	<true></true>
 	<key>GOOGLE_APP_ID</key>
-	<string>1:859802622255:ios:192e64501abeb88969e9da</string>
+	<string>1:750448438874:ios:420123088c87ee1db5b263</string>
 </dict>
 </plist>

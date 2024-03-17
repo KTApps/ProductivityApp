@@ -8,10 +8,10 @@
 import SwiftUI
 
 struct SignUpView: View {
-    @EnvironmentObject var authModel: AuthModel
+    @EnvironmentObject var authModel: AuthViewModel
     
-    @State private var name = ""
-    @State private var SureName = ""
+    @State private var forename = ""
+    @State private var sureName = ""
     @State private var email = ""
     @State private var password = ""
     
@@ -31,25 +31,19 @@ struct SignUpView: View {
                 Spacer()
                     .frame(height: 20)
                 
-                SignUpInput(text: $name,
-                            title: "name",
-                            placeholder: "name")
+                Input(text: $forename, title: "name", placeHolder: "name")
                 .foregroundColor(.white)
                 
                 Spacer()
                     .frame(height: 20)
                 
-                SignUpInput(text: $SureName,
-                            title: "Surename",
-                            placeholder: "name")
+                Input(text: $sureName, title: "Surename", placeHolder: "name")
                 .foregroundColor(.white)
                 
                 Spacer()
                     .frame(height: 20)
                 
-                SignUpInput(text: $email,
-                            title: "Email Address",
-                            placeholder: "name@example.com")
+                Input(text: $email, title: "Email Address", placeHolder: "name@example.com")
                 .autocapitalization(/*@START_MENU_TOKEN@*/.none/*@END_MENU_TOKEN@*/)
                 .foregroundColor(.white)
                 
@@ -57,9 +51,9 @@ struct SignUpView: View {
                     .frame(height: 20)
                 
                 ZStack(alignment: .trailing) {
-                    SignUpInput(text: $password,
+                    Input(text: $password,
                                 title: "Password",
-                                placeholder: "********",
+                                placeHolder: "********",
                                 secureField: true)
                     .foregroundColor(.white)
                     
@@ -83,7 +77,7 @@ struct SignUpView: View {
                     Task {
                         try await authModel.signUp(withEmail: email,
                                                    password: password,
-                                                   fullname: "\(name) \(SureName)")
+                                                   fullname: "\(forename) \(sureName)")
                     }
                 } label: {
                     ZStack {
@@ -120,8 +114,8 @@ struct SignUpView: View {
 
 extension SignUpView: AuthFormValidation {
     var isFormValid: Bool {
-        return !name.isEmpty
-        && !SureName.isEmpty
+        return !forename.isEmpty
+        && !sureName.isEmpty
         && !email.isEmpty
         && email.contains("@")
         && password.count > 5

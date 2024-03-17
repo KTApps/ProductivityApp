@@ -10,8 +10,8 @@ import Firebase
 
 @main
 struct Prod1App: App {
-    let object = Objects()
-    @StateObject var authModel = AuthModel()
+    @StateObject var object = Objects()
+    @StateObject var authModel = AuthViewModel()
     
     init() {
         FirebaseApp.configure()

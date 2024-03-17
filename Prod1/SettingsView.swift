@@ -8,10 +8,10 @@
 import SwiftUI
 
 struct SettingsView: View {
-    @EnvironmentObject var authModel: AuthModel
+    @EnvironmentObject var authViewModel: AuthViewModel
     
     var body: some View {
-        if let user = authModel.currentUser {
+        if let user = authViewModel.currentUser {
             List {
                 Section {
                     HStack {
@@ -31,25 +31,25 @@ struct SettingsView: View {
                 
                 Section("Account") {
                     Button {
-                        authModel.signOut()
+                        authViewModel.signOut()
                     } label: {
-                        SettingsModel(image: "arrow.left.circle.fill",
-                                      action: "Sign Out")
+                        SettingsButton(image: "arrow.left.circle.fill", action: "Sign Out")
                     }
                     
                     Button {
-                        authModel.deleteAccount()
+                        authViewModel.deleteAccount()
                     } label: {
-                        SettingsModel(image: "x.circle.fill",
-                                      action: "Delete Account")
+                        SettingsButton(image: "x.circle.fill", action: "Delete Account")
                     }
                 }
                 .foregroundColor(.black)
             }
-        }
+        } 
     }
 }
 
-#Preview {
-    SettingsView()
+struct SettingsView_Previews: PreviewProvider {
+    static var previews: some View {
+        SettingsView()
+    }
 }

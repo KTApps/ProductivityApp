@@ -8,7 +8,8 @@
 import SwiftUI
 
 struct StartView: View {
-    @EnvironmentObject var authModel: AuthModel
+    @EnvironmentObject var authModel: AuthViewModel
+    
     var body: some View {
         Group {
             if authModel.userSession != nil {

@@ -7,52 +7,9 @@
 
 import SwiftUI
 import Charts
-// hi
 
 struct ContentView: View {
     @EnvironmentObject var object: Objects
-    
-    @State var TaskName = "Task"
-    @State var TaskTime: Int = 0
-    @State var TimerCount: Int = 0
-    private func TaskTimer() -> Int? {
-        for item in drop { // Use '.forEach{}' when performing an operation. Use 'ForEach(){}' when presenting a view.
-            if (item.title == TaskName) {
-                if object.TaskTimerDictionary[item.title] != nil {
-                    object.TaskTimerDictionary[item.title]? += 1
-                } else {
-                    TimerCount = 0
-                    TimerCount += 1
-                    object.TaskTimerDictionary[item.title] = TimerCount
-                }
-                return object.TaskTimerDictionary[item.title]
-            }
-        }
-        return nil
-    }
-    
-    private func resetTimer() -> Int? {
-        for item in drop {
-            if (item.title == TaskName) {
-                if object.TaskTimerDictionary[item.title] == nil {
-                    return 0
-                } else {
-                    return object.TaskTimerDictionary[item.title]
-                }
-            }
-        }
-        return nil
-    }
-    
-    private func ColorReturn(value: String) -> Color {
-        if (object.habitTickBoxDict[value] == true) {
-            return .blue
-        } else {
-            return .gray
-        }
-    }
-    
-    @State var isSettingsVisible = false
     
     var body: some View {
         
@@ -74,10 +31,10 @@ struct ContentView: View {
                                 ForEach(drop) { item in
                                     Button(action: {
                                         withAnimation {
-                                            TaskName = item.title
+                                            object.TaskName = item.title
                                             object.IsTaskDropDownVisible.toggle()
                                         }
-                                        TaskTime = resetTimer() ?? 0
+                                        object.TaskTime = object.resetTimer() ?? 0
                                     }) {
                                         HStack {
                                             Text(item.title)
@@ -120,7 +77,7 @@ struct ContentView: View {
                             .frame(height: 0)
                             .foregroundColor(.black)
                         HStack{
-                            Text(TaskName)
+                            Text(object.TaskName)
                                 .font(.largeTitle)
                                 .offset(x: 20)
 
@@ -128,14 +85,14 @@ struct ContentView: View {
                                 .offset(x: 25)
                                 
                             Button {
-                                isSettingsVisible = true
+                                object.isSettingsVisible = true
                             } label: {
                                 Image(systemName: "gear")
                                     .resizable()
                             }
                             .frame(width: 25, height: 25)
                             .offset(x: 110)
-                            .sheet(isPresented: $isSettingsVisible) {
+                            .sheet(isPresented: $object.isSettingsVisible) {
                                 SettingsView()
                                     .presentationDetents([.medium])
                             }
@@ -155,10 +112,10 @@ struct ContentView: View {
                 
 //                            MARK: HOUR GLASS Label
                 HStack {
-                    Label("\(TaskTime)", systemImage: "hourglass.bottomhalf.fill")
+                    Label("\(object.TaskTime)", systemImage: "hourglass.bottomhalf.fill")
                         .onReceive(object.timer) { time in
                             if object.IsTimerOn {
-                                TaskTime = TaskTimer() ?? 0
+                                object.TaskTime = object.TaskTimer() ?? 0
                             }
                         }
                     
@@ -212,10 +169,10 @@ struct ContentView: View {
                                     outerRadius: 120,
                                     angularInset: 1
                                 )
-                                .foregroundStyle(ColorReturn(value: habit))
+                                .foregroundStyle(object.ColorReturn(value: habit))
                             }
                             VStack{
-                                Text("\(TaskTime) Seconds")
+                                Text("\(object.TaskTime) Seconds")
                                     .font(.title2)
                                 Text("Today")
                                     .font(.title3) // placeholder for date
