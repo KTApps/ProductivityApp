@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct SettingsModel: View {
+struct SettingsButton: View {
     let image: String
     let action: String
     
@@ -23,5 +23,5 @@ struct SettingsModel: View {
 }
 
 #Preview {
-    SettingsModel(image: "arrow.left.circle.fill", action: "Sign Out")
+    SettingsButton(image: "arrow.left.circle.fill", action: "Sign Out")
 }
