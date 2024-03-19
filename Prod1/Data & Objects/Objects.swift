@@ -32,6 +32,16 @@ class Objects: ObservableObject {
 //    MARK: Task DropDown Menu
     @Published var dropMenu = DropMenu.self // [DropMenu]
     @Published var IsTaskDropDownVisible = false
+    @Published var TaskPercentageDict: [String: Double] = [:] // Dictionary = [Task Title: fraction of task completed]
+    
+    func ProgressPercentage() {
+        for item in drop {
+            print("\(TaskTimerDictionary[item.title])")
+            let decimal: Double = Double(TaskTimerDictionary[item.title] ?? 0)/20.00 // '20.00' determines how many decimal oints are printed
+            TaskPercentageDict[item.title] = decimal
+        }
+        print("\(TaskPercentageDict)")
+    }
     
 //    MARK: Task Timer
     @Published var IsTimerOn: Bool = false

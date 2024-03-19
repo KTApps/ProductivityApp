@@ -128,6 +128,7 @@ struct ContentView: View {
                             object.timer = Timer.publish(every: 0.1, on: .main, in: .common).autoconnect()
                         } else {
                             object.timer.upstream.connect().cancel()
+                            object.ProgressPercentage()
                         }
                     }) {
                         Image(systemName: object.IsTimerOn ? "stop.circle.fill" : "play.circle.fill")
@@ -220,7 +221,7 @@ struct ContentView: View {
                             }
                             .sheet(isPresented: $object.IsViewYourProgressVisible) {
                                 ViewYourProgress()
-                                    .presentationDetents([.medium, .large])
+                                    .presentationDetents([.medium, .fraction(3/4)])
                             }
                         }
                         .padding()
