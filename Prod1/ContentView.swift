@@ -17,59 +17,34 @@ struct ContentView: View {
         ZStack {
             VStack{
                 
+//                MARK: SETTINGS BUTTON
+                Button {
+                    object.isSettingsVisible = true
+                } label: {
+                    Image(systemName: "gear")
+                        .resizable()
+                }
+                .foregroundColor(.gray)
+                .frame(width: 25, height: 25)
+                .offset(x: 150)
+                .sheet(isPresented: $object.isSettingsVisible) {
+                    SettingsView()
+                        .presentationDetents([.medium])
+                }
+                
 //                MARK: TASK TITLE & TASK DROP DOWN ZStack
                 ZStack{
                     
 //                    MARK: TASK DROP DOWN ZStack
                     ZStack{
                         RoundedRectangle(cornerRadius: 10)
-                            .foregroundColor(.gray)
-                        ScrollView{
-                            LazyVStack(spacing: 17) {
-                                
-//                                MARK: LIST OF DROPDOWN Buttons
-                                ForEach(drop) { item in
-                                    Button(action: {
-                                        withAnimation {
-                                            object.TaskName = item.title
-                                            object.IsTaskDropDownVisible.toggle()
-                                        }
-                                        object.TaskTime = object.resetTimer() ?? 0
-                                    }) {
-                                        HStack {
-                                            Text(item.title)
-                                                .foregroundColor(.white)
-                                                .font(.callout)
-                                                .multilineTextAlignment(.center)
-                                                .bold()
-                                            Spacer()
-                                        }
-                                    }
-                                }
-                                .padding(.horizontal)
-                                
-//                                MARK: ADD DROPDOWN ITEM Button
-                                Button(action: {
-                                    
-                                }) {
-                                    ZStack{
-                                        RoundedRectangle(cornerRadius: 10)
-                                            .stroke(lineWidth: 1)
-                                            .frame(width: 100, height: 30)
-                                            .foregroundColor(.white)
-                                        Text("Add item")
-                                            .font(.callout)
-                                            .fontWeight(.bold)
-                                            .foregroundColor(.white)
-                                    }
-                                }
-                            }
-                            .frame(maxWidth: .infinity, alignment: .leading)
-                            .padding(.vertical, 15)
-                        }
+                            .foregroundColor(object.darkGray)
+                            .padding(.horizontal, 5)
+                        
+                        CustomProgressBar()
                     }
-                    .frame(height: object.IsTaskDropDownVisible ? 200 : 0) // If show = true, ZStack height = 220, else height = 0
-                    .offset(y: object.IsTaskDropDownVisible ? 140 : 35) // Control Transition of DropDown
+                    .frame(height: object.IsTaskDropDownVisible ? 460 : 0) // If show = true, ZStack height = 220, else height = 0
+                    .offset(y: object.IsTaskDropDownVisible ? 280 : 25) // Control Transition of DropDown
                     
 //                    MARK: TASK TITLE ZStack
                     ZStack{
@@ -79,23 +54,8 @@ struct ContentView: View {
                         HStack{
                             Text(object.TaskName)
                                 .font(.largeTitle)
-                                .offset(x: 20)
-
+                                                    
                             Image(systemName: "chevron.down")
-                                .offset(x: 25)
-                                
-                            Button {
-                                object.isSettingsVisible = true
-                            } label: {
-                                Image(systemName: "gear")
-                                    .resizable()
-                            }
-                            .frame(width: 25, height: 25)
-                            .offset(x: 110)
-                            .sheet(isPresented: $object.isSettingsVisible) {
-                                SettingsView()
-                                    .presentationDetents([.medium])
-                            }
                         }
                         .bold()
                         .foregroundColor(.white)
@@ -129,6 +89,7 @@ struct ContentView: View {
                         } else {
                             object.timer.upstream.connect().cancel()
                             object.ProgressPercentage()
+                            object.newTimeCalc()
                         }
                     }) {
                         Image(systemName: object.IsTimerOn ? "stop.circle.fill" : "play.circle.fill")
@@ -142,14 +103,18 @@ struct ContentView: View {
                 ZStack{
                     
 //                                MARK: OUTER CIRCLE
-                    Chart(drop) { task in
+                    Circle()
+                        .stroke(lineWidth: 25)
+                        .opacity(0.3)
+                        .foregroundColor(.gray)
+                        .frame(width: 320, height: 300)
+                    Chart(object.Tasks, id:\.self) { task in
                         SectorMark(
-                            angle: .value("Time Spent", object.TaskTimerDictionary[task.title] ?? 0),
+                            angle: .value("Time Spent", object.TaskTimerDictionary[task] ?? 0),
                             innerRadius: 140,
                             outerRadius: 170,
                             angularInset: 1
                         )
-                        .foregroundStyle(task.colour)
                         .cornerRadius(5)
                     }
                     
@@ -197,7 +162,7 @@ struct ContentView: View {
                     ZStack{
                         RoundedRectangle(cornerRadius: 10)
                             .frame(height: 200)
-                            .foregroundColor(.gray)
+                            .foregroundColor(object.darkGray)
                             .padding(.horizontal, 7)
                         
 //                                    MARK: VIEW YOUR PROGRESS Button

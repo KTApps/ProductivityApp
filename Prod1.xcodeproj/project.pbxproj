@@ -7,15 +7,13 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		080E02632BAA044E0044ADFB /* ManualCalendarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 080E02622BAA044E0044ADFB /* ManualCalendarView.swift */; };
 		080E02652BAA0F840044ADFB /* ProgressBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 080E02642BAA0F840044ADFB /* ProgressBar.swift */; };
 		081550052B869BA800A50212 /* Objects.swift in Sources */ = {isa = PBXBuildFile; fileRef = 081550042B869BA800A50212 /* Objects.swift */; };
+		082C36322BAFBC2F00CD7621 /* AddTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = 082C36312BAFBC2F00CD7621 /* AddTask.swift */; };
 		082D11B42B82910100E39B40 /* HabitAdder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 082D11B32B82910100E39B40 /* HabitAdder.swift */; };
 		082D11B72B8291E400E39B40 /* ViewYourProgress.swift in Sources */ = {isa = PBXBuildFile; fileRef = 082D11B62B8291E400E39B40 /* ViewYourProgress.swift */; };
-		08475CDD2BA78D0B001B29AD /* MiniCircle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08475CDC2BA78D0B001B29AD /* MiniCircle.swift */; };
 		085D8E0E2BA0DF580028AD03 /* AuthenticationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 085D8E0D2BA0DF580028AD03 /* AuthenticationViewModel.swift */; };
 		085D8E122BA0E8540028AD03 /* StartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 085D8E112BA0E8540028AD03 /* StartView.swift */; };
-		085E9DA62B8A73E50018D661 /* DropMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 085E9DA52B8A73E50018D661 /* DropMenu.swift */; };
 		086FA10E2BA2178F005B26EB /* Input.swift in Sources */ = {isa = PBXBuildFile; fileRef = 086FA10D2BA2178F005B26EB /* Input.swift */; };
 		086FA1102BA217B1005B26EB /* LogInView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 086FA10F2BA217B1005B26EB /* LogInView.swift */; };
 		086FA1122BA217D5005B26EB /* SettingsButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 086FA1112BA217D5005B26EB /* SettingsButton.swift */; };
@@ -25,9 +23,8 @@
 		086FA1202BA2202C005B26EB /* FirebaseFirestoreSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 086FA11F2BA2202C005B26EB /* FirebaseFirestoreSwift */; };
 		086FA1222BA2204A005B26EB /* FirebaseStorage in Frameworks */ = {isa = PBXBuildFile; productRef = 086FA1212BA2204A005B26EB /* FirebaseStorage */; };
 		086FA1262BA221A6005B26EB /* SignUpView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 086FA1252BA221A6005B26EB /* SignUpView.swift */; };
-		088ADC492BA8E42400FF9852 /* CalendarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 088ADC482BA8E42400FF9852 /* CalendarView.swift */; };
 		0890779D2B8E6E5C0066E76C /* InnerCircle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0890779C2B8E6E5C0066E76C /* InnerCircle.swift */; };
-		0890779F2B8E6E680066E76C /* OuterCircleTesting.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0890779E2B8E6E680066E76C /* OuterCircleTesting.swift */; };
+		08A61FEF2BB490D6004FB1D6 /* CalenderView2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08A61FEE2BB490D6004FB1D6 /* CalenderView2.swift */; };
 		08B8419F2BA5F15E009B4419 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 08B8419E2BA5F15E009B4419 /* GoogleService-Info.plist */; };
 		08E2D3E52BA0CE3D0097327A /* UserObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08E2D3E42BA0CE3D0097327A /* UserObject.swift */; };
 		08EB383C2B7FC9F000141B28 /* BlurView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08EB383B2B7FC9F000141B28 /* BlurView.swift */; };
@@ -39,23 +36,20 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		080E02622BAA044E0044ADFB /* ManualCalendarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManualCalendarView.swift; sourceTree = "<group>"; };
 		080E02642BAA0F840044ADFB /* ProgressBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgressBar.swift; sourceTree = "<group>"; };
 		081550042B869BA800A50212 /* Objects.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Objects.swift; sourceTree = "<group>"; };
+		082C36312BAFBC2F00CD7621 /* AddTask.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddTask.swift; sourceTree = "<group>"; };
 		082D11B32B82910100E39B40 /* HabitAdder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HabitAdder.swift; sourceTree = "<group>"; };
 		082D11B62B8291E400E39B40 /* ViewYourProgress.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewYourProgress.swift; sourceTree = "<group>"; };
-		08475CDC2BA78D0B001B29AD /* MiniCircle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MiniCircle.swift; sourceTree = "<group>"; };
 		085D8E0D2BA0DF580028AD03 /* AuthenticationViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = AuthenticationViewModel.swift; path = Authentication/AuthenticationViewModel.swift; sourceTree = "<group>"; };
 		085D8E112BA0E8540028AD03 /* StartView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartView.swift; sourceTree = "<group>"; };
-		085E9DA52B8A73E50018D661 /* DropMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DropMenu.swift; sourceTree = "<group>"; };
 		086FA10D2BA2178F005B26EB /* Input.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Input.swift; sourceTree = "<group>"; };
 		086FA10F2BA217B1005B26EB /* LogInView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogInView.swift; sourceTree = "<group>"; };
 		086FA1112BA217D5005B26EB /* SettingsButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsButton.swift; sourceTree = "<group>"; };
 		086FA1132BA217F9005B26EB /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 		086FA1252BA221A6005B26EB /* SignUpView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpView.swift; sourceTree = "<group>"; };
-		088ADC482BA8E42400FF9852 /* CalendarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarView.swift; sourceTree = "<group>"; };
 		0890779C2B8E6E5C0066E76C /* InnerCircle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InnerCircle.swift; sourceTree = "<group>"; };
-		0890779E2B8E6E680066E76C /* OuterCircleTesting.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OuterCircleTesting.swift; sourceTree = "<group>"; };
+		08A61FEE2BB490D6004FB1D6 /* CalenderView2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalenderView2.swift; sourceTree = "<group>"; };
 		08B8419E2BA5F15E009B4419 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		08E2D3E42BA0CE3D0097327A /* UserObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserObject.swift; sourceTree = "<group>"; };
 		08EB383B2B7FC9F000141B28 /* BlurView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlurView.swift; sourceTree = "<group>"; };
@@ -96,7 +90,6 @@
 			isa = PBXGroup;
 			children = (
 				081550042B869BA800A50212 /* Objects.swift */,
-				085E9DA52B8A73E50018D661 /* DropMenu.swift */,
 			);
 			path = "Data & Objects";
 			sourceTree = "<group>";
@@ -141,9 +134,7 @@
 			isa = PBXGroup;
 			children = (
 				082D11B62B8291E400E39B40 /* ViewYourProgress.swift */,
-				08475CDC2BA78D0B001B29AD /* MiniCircle.swift */,
-				088ADC482BA8E42400FF9852 /* CalendarView.swift */,
-				080E02622BAA044E0044ADFB /* ManualCalendarView.swift */,
+				08A61FEE2BB490D6004FB1D6 /* CalenderView2.swift */,
 			);
 			name = ViewProgress;
 			sourceTree = "<group>";
@@ -152,7 +143,6 @@
 			isa = PBXGroup;
 			children = (
 				0890779C2B8E6E5C0066E76C /* InnerCircle.swift */,
-				0890779E2B8E6E680066E76C /* OuterCircleTesting.swift */,
 			);
 			path = Circles;
 			sourceTree = "<group>";
@@ -191,6 +181,7 @@
 				085D8E112BA0E8540028AD03 /* StartView.swift */,
 				7646F2AE2B7837D20075908C /* ContentView.swift */,
 				080E02642BAA0F840044ADFB /* ProgressBar.swift */,
+				082C36312BAFBC2F00CD7621 /* AddTask.swift */,
 				087EC7C52B8E6CC6007B2EFC /* Circles */,
 				086FA12F2BA226C9005B26EB /* ViewProgress */,
 				082D11B52B82912D00E39B40 /* Habit BlurView */,
@@ -295,6 +286,7 @@
 				086FA1122BA217D5005B26EB /* SettingsButton.swift in Sources */,
 				086FA1102BA217B1005B26EB /* LogInView.swift in Sources */,
 				086FA10E2BA2178F005B26EB /* Input.swift in Sources */,
+				08A61FEF2BB490D6004FB1D6 /* CalenderView2.swift in Sources */,
 				082D11B42B82910100E39B40 /* HabitAdder.swift in Sources */,
 				08E2D3E52BA0CE3D0097327A /* UserObject.swift in Sources */,
 				086FA1262BA221A6005B26EB /* SignUpView.swift in Sources */,
@@ -302,18 +294,14 @@
 				085D8E0E2BA0DF580028AD03 /* AuthenticationViewModel.swift in Sources */,
 				081550052B869BA800A50212 /* Objects.swift in Sources */,
 				7646F2AF2B7837D20075908C /* ContentView.swift in Sources */,
-				088ADC492BA8E42400FF9852 /* CalendarView.swift in Sources */,
-				080E02632BAA044E0044ADFB /* ManualCalendarView.swift in Sources */,
 				080E02652BAA0F840044ADFB /* ProgressBar.swift in Sources */,
 				082D11B72B8291E400E39B40 /* ViewYourProgress.swift in Sources */,
+				082C36322BAFBC2F00CD7621 /* AddTask.swift in Sources */,
 				7646F2AD2B7837D20075908C /* Prod1App.swift in Sources */,
-				0890779F2B8E6E680066E76C /* OuterCircleTesting.swift in Sources */,
 				085D8E122BA0E8540028AD03 /* StartView.swift in Sources */,
-				08475CDD2BA78D0B001B29AD /* MiniCircle.swift in Sources */,
 				08EB383E2B7FCF6700141B28 /* HabitTracker.swift in Sources */,
 				08EB383C2B7FC9F000141B28 /* BlurView.swift in Sources */,
 				0890779D2B8E6E5C0066E76C /* InnerCircle.swift in Sources */,
-				085E9DA62B8A73E50018D661 /* DropMenu.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -18,6 +18,7 @@ struct ViewYourProgress: View {
                 Text("Progress")
                     .font(.largeTitle)
                     .fontWeight(.semibold)
+                    .foregroundColor(.black)
 
                 Spacer()
                     .frame(height: 0)

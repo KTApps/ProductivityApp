@@ -12,6 +12,9 @@ class Objects: ObservableObject {
 //    MARK: Authentication
     @Published var secureField: Bool = false
     
+//    MARK: CUSTOM COLOURS
+    @Published var darkGray: Color = Color(.sRGB, red: 0.2, green: 0.2, blue: 0.2, opacity: 1.0)
+    
 //    MARK: BlurView
     @Published var IsBlurViewVisible: Bool = false
 
@@ -30,17 +33,36 @@ class Objects: ObservableObject {
     @Published var WeekDay: [String] = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"]
     
 //    MARK: Task DropDown Menu
-    @Published var dropMenu = DropMenu.self // [DropMenu]
+    @Published var TaskString: String = ""
+    @Published var Tasks: [String] = []
+    
+    func TaskAdder() {
+        Tasks.append(TaskString)
+    }
+    
+    @Published var isAddTaskVisible = false
     @Published var IsTaskDropDownVisible = false
-    @Published var TaskPercentageDict: [String: Double] = [:] // Dictionary = [Task Title: fraction of task completed]
+    
+    @Published var TaskDecimalDict: [String: Double] = [:] // Dictionary = [Task Title: fraction of task completed]
+    @Published var TaskPercentageDict: [String: Int] = [:] // Dictionary = [Task Title: percentage of task completed]
     
     func ProgressPercentage() {
-        for item in drop {
-            print("\(TaskTimerDictionary[item.title])")
-            let decimal: Double = Double(TaskTimerDictionary[item.title] ?? 0)/20.00 // '20.00' determines how many decimal oints are printed
-            TaskPercentageDict[item.title] = decimal
+        for item in Tasks {
+            let decimal: Double = Double(TaskTimerDictionary[item] ?? 0)/20.00 // '20.00' determines how many decimal oints are printed
+            let percentage = Int(decimal * 100)
+            TaskDecimalDict[item] = decimal
+            TaskPercentageDict[item] = percentage
         }
-        print("\(TaskPercentageDict)")
+    }
+    
+    @Published var maxWidth: Double = 340
+    @Published var newTimeArray: [String: Int] = [:]
+    
+    func newTimeCalc() {
+        for item in Tasks {
+            let newTime = (maxWidth * (TaskDecimalDict[item] ?? 0))
+            newTimeArray[item] = Int(newTime)
+        }
     }
     
 //    MARK: Task Timer
@@ -52,28 +74,28 @@ class Objects: ObservableObject {
     @Published var TimerCount: Int = 0
     
     func TaskTimer() -> Int? {
-        for item in drop { // Use '.forEach{}' when performing an operation. Use 'ForEach(){}' when presenting a view.
-            if (item.title == TaskName) {
-                if TaskTimerDictionary[item.title] != nil {
-                    TaskTimerDictionary[item.title]? += 1
+        for item in Tasks { // Use '.forEach{}' when performing an operation. Use 'ForEach(){}' when presenting a view.
+            if (item == TaskName) {
+                if TaskTimerDictionary[item] != nil {
+                    TaskTimerDictionary[item]? += 1
                 } else {
                     TimerCount = 0
                     TimerCount += 1
-                    TaskTimerDictionary[item.title] = TimerCount
+                    TaskTimerDictionary[item] = TimerCount
                 }
-                return TaskTimerDictionary[item.title]
+                return TaskTimerDictionary[item]
             }
         }
         return nil
     }
     
     func resetTimer() -> Int? {
-        for item in drop {
-            if (item.title == TaskName) {
-                if TaskTimerDictionary[item.title] == nil {
+        for item in Tasks {
+            if (item == TaskName) {
+                if TaskTimerDictionary[item] == nil {
                     return 0
                 } else {
-                    return TaskTimerDictionary[item.title]
+                    return TaskTimerDictionary[item]
                 }
             }
         }
